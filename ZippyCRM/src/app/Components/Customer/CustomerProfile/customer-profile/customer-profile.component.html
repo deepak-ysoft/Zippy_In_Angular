@@ -1,0 +1,302 @@
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+  integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+/>
+<section class="section">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body pt-4">
+          <div class="row">
+            <div class="col-auto">
+              <img
+                src="{{ customer.imagepath }}"
+                style="height: 45px; width: 45px"
+                class="rounded-circle"
+              />
+            </div>
+            <div class="col">
+              <div class="row">
+                <div class="col">{{ customer.firstName }}</div>
+              </div>
+              <div class="row">
+                <div class="col-auto">
+                  <i class="fa-solid fa-mobile-retro"></i>&nbsp;
+                  <span>{{ customer.phone }}</span>
+                </div>
+                <div class="col-auto">
+                  <i class="fa-solid fa-envelope-open-text"></i>&nbsp;
+                  <span>{{ customer.email }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <input type="hidden" id="customerId" value="{{ customer.cId }}" />
+          <hr />
+          <ul class="nav nav-tabs nav-tabs-bordered" id="profileTabs">
+            <li class="nav-item">
+              <button
+                class="nav-link"
+                [class.active]="activeTab === '#profile-Contacts'"
+                data-bs-toggle="tab"
+                (click)="activateTab('#profile-Contacts', customer.cId)"
+                data-bs-target="#profile-Contacts"
+              >
+                Contacts
+              </button>
+            </li>
+            <li class="nav-item">
+              <button
+                class="nav-link"
+                [class.active]="activeTab === '#profile-Addresses'"
+                data-bs-toggle="tab"
+                (click)="activateTab('#profile-Addresses', customer.cId)"
+                data-bs-target="#profile-Addresses"
+              >
+                Addresses
+              </button>
+            </li>
+            <li class="nav-item">
+              <button
+                class="nav-link"
+                [class.active]="activeTab === '#profile-Task'"
+                data-bs-toggle="tab"
+                (click)="activateTab('#profile-Task', customer.cId)"
+                data-bs-target="#profile-Task"
+              >
+                Task
+              </button>
+            </li>
+            <li class="nav-item">
+              <button
+                class="nav-link"
+                [class.active]="activeTab === '#profile-Documents'"
+                data-bs-toggle="tab"
+                (click)="activateTab('#profile-Documents', customer.cId)"
+                data-bs-target="#profile-Documents"
+              >
+                Documents
+              </button>
+            </li>
+            <li class="nav-item">
+              <button
+                class="nav-link"
+                [class.active]="activeTab === '#profile-Notes'"
+                data-bs-toggle="tab"
+                (click)="activateTab('#profile-Notes', customer.cId)"
+                data-bs-target="#profile-Notes"
+              >
+                Notes
+              </button>
+            </li>
+            <li class="nav-item">
+              <button
+                class="nav-link"
+                [class.active]="activeTab === '#profile-AppointMent'"
+                data-bs-toggle="tab"
+                (click)="activateTab('#profile-AppointMent', customer.cId)"
+                data-bs-target="#profile-AppointMent"
+              >
+                AppointMents
+              </button>
+            </li>
+          </ul>
+
+          <!-- Tab Contents -->
+          <div class="tab-content pt-3">
+            <div
+              class="tab-pane fade"
+              [class.show]="activeTab === '#profile-Contacts'"
+              [class.active]="activeTab === '#profile-Contacts'"
+              id="profile-Contacts"
+            >
+              <app-cus-contact [customerId]="customer.cId"></app-cus-contact>
+            </div>
+            <div
+              class="tab-pane fade"
+              [class.show]="activeTab === '#profile-Addresses'"
+              [class.active]="activeTab === '#profile-Addresses'"
+              id="profile-Addresses"
+            >
+              <app-cus-addresses
+                [customerId]="customer.cId"
+              ></app-cus-addresses>
+            </div>
+            <div
+              class="tab-pane fade"
+              [class.show]="activeTab === '#profile-Task'"
+              [class.active]="activeTab === '#profile-Task'"
+              id="profile-Task"
+            >
+              <app-cus-task [customerId]="customer.cId"></app-cus-task>
+            </div>
+            <div
+              class="tab-pane fade"
+              [class.show]="activeTab === '#profile-Documents'"
+              [class.active]="activeTab === '#profile-Documents'"
+              id="profile-Documents"
+            >
+              <app-cus-documents
+                [customerId]="customer.cId"
+              ></app-cus-documents>
+            </div>
+            <div
+              class="tab-pane fade"
+              [class.show]="activeTab === '#profile-Notes'"
+              [class.active]="activeTab === '#profile-Notes'"
+              id="profile-Notes"
+            >
+              <app-cus-notes [customerId]="customer.cId"></app-cus-notes>
+            </div>
+            <div
+              class="tab-pane fade"
+              [class.show]="activeTab === '#profile-AppointMent'"
+              [class.active]="activeTab === '#profile-AppointMent'"
+              id="profile-AppointMent"
+            >
+              <app-cus-appointment
+                [tabChange]="activeTab"
+                [customerId]="customer.cId"
+              ></app-cus-appointment>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div
+  class="modal fade"
+  id="addressModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="addressModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-landscape" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addressModalLabel">Hello cusName &nbsp!</h5>
+        <button
+          type="button"
+          class="btn-close btn-danger bg-danger"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body" id="modalBody">
+        <!-- Form content will be injected here -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="contectModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="contectModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-landscape" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="contectModalLabel">Hello cusName &nbsp!</h5>
+        <button
+          type="button"
+          class="btn-close btn-danger bg-danger"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body" id="modalBodycontect">
+        <!-- Form content will be injected here -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="taskModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="taskModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-landscape" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addressModalLabel">Hello cusName &nbsp!</h5>
+        <button
+          type="button"
+          class="btn-close btn-danger bg-danger"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body" id="modalBodyTASK">
+        <!-- Form content will be injected here -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="notesModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="notesModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-landscape" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="NotesModalLabel">Hello cusName &nbsp!</h5>
+        <button
+          type="button"
+          class="btn-close btn-danger bg-danger"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body" id="modalBodyNotes">
+        <!-- Form content will be injected here -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="appointmentModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="appointmentModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-landscape" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="appointmentModalLabel">
+          Hello cusName &nbsp;
+        </h5>
+        <button
+          type="button"
+          class="btn-close btn-danger bg-danger"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body" id="modalBodyAppointment">
+        <!-- Form content will be injected here -->
+      </div>
+    </div>
+  </div>
+</div>

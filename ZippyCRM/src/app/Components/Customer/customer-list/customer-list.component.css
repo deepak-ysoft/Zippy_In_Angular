@@ -1,0 +1,24 @@
+.pagination {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+button {
+    margin: 0 10px;
+}
+
+.alignment {
+    justify-content: right !important;
+    align-items: right !important;
+}
+.spinnerHeight {
+    height: 485px;
+}
+.cursor-pointer {
+    cursor: pointer;
+}
+.ColWidth {
+    max-width: 6%;
+}

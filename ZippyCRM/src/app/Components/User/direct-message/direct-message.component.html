@@ -1,0 +1,97 @@
+<div class="row main-container">
+  <span class="col-2 p-0 m-0">
+    <div class="user-container">
+      <div class="chat-header">
+        <h3 class="m-0 text-shadow-header">USERS</h3>
+      </div>
+
+      <div class="user-list">
+        <span *ngFor="let user of userList">
+          <a (click)="getUserChatHistory(user)"
+            ><img class="user-image" [src]="user.imagePath" alt="user image" />
+            <span>{{ user.username }}</span></a
+          >
+          <hr class="hr mt-2 mb-2" />
+        </span>
+      </div>
+    </div>
+  </span>
+  <span class="col-8 p-0 m-0">
+    <div class="chat-container">
+      <div class="chat-header">
+        <h3 class="m-0 text-shadow-header">
+          <a
+            data-bs-toggle="modal"
+            data-bs-target="#imageModal"
+            *ngIf="isGetUserClicked"
+          >
+            <img
+              class="user-image"
+              [src]="otherUser.imagePath"
+              alt="user image"
+          /></a>
+          CHAT WITH
+          <span *ngIf="isGetUserClicked">{{
+            otherUser.username.toUpperCase()
+          }}</span
+          ><span *ngIf="!isGetUserClicked">USER</span>
+        </h3>
+      </div>
+
+      <div class="chat-history" id="chat-container" #chatContainer>
+        <div *ngFor="let msg of messages" class="chat-messageai">
+          <div
+            *ngIf="msg.senderId == loggedUser.user.userId"
+            class="sender-message"
+          >
+            <p class="m-0 message-content">{{ msg.message }}</p>
+            <small>{{ msg.timestamp | date : "short" }}</small>
+          </div>
+          <div *ngIf="msg.receiverId != otherUser.userId" class="chat-message">
+            <p class="message-content">{{ msg.message }}</p>
+            <small>{{ msg.timestamp | date : "short" }}</small>
+          </div>
+        </div>
+        <div class="center-box">
+          <span *ngIf="!isGetUserClicked" class="isNotClicked"
+            ><strong class="text-shadow">
+              C͎͎l͎͎i͎͎c͎͎k͎ ͎o͎͎n͎ a͎͎n͎͎y͎ ͎u͎͎s͎͎e͎͎r͎ ͎t͎͎o͎ ͎c͎͎h͎a͎͎t͎ ͎w͎͎i͎͎t͎͎h͎ ͎t͎͎h͎͎e͎͎m͎</strong
+            >
+          </span>
+          <span
+            *ngIf="isGetUserClicked && messages.length < 1"
+            class="isNotClicked"
+            ><strong class="text-shadow">
+              Say hiii to {{otherUser.username}}</strong
+            >
+          </span>
+        </div>
+      </div>
+
+      <div class="chat-input">
+        <input
+          [(ngModel)]="currentMessage"
+          placeholder="Type a message..."
+          class="message-input"
+        />
+        <button (click)="sendMessage()" class="send-button">
+          <i class="fa fa-paper-plane size-of-plan" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+  </span>
+</div>
+<div class="modal fade" id="imageModal" aria-labelledby="imageModalLabel">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body" *ngIf="isGetUserClicked">
+        <img
+          style="height: auto !important; width: 600px !important"
+          [src]="otherUser.imagePath"
+          class="img-fluid"
+          alt="User Image"
+        />
+      </div>
+    </div>
+  </div>
+</div>

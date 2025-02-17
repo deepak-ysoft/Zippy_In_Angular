@@ -1,0 +1,26 @@
+/* Hide the default file input */
+.custom-file-input {
+   display: none;
+}
+
+/* Style the label as a button */
+.custom-file-upload label {
+   cursor: pointer;
+   display: inline-block;
+   padding: 1px 6px;
+   background-color: #007bff;
+   color: white;
+   border-radius: 5px;
+   font-size: 16px;
+   text-align: center;
+}
+
+.custom-file-upload label:hover {
+   background-color: #0056b3; /* Darker shade when hovered */
+}
+.modal-dialog {
+   max-width: 533px;
+}
+.cursor-pointer {
+   cursor: pointer;
+}

@@ -1,0 +1,680 @@
+<div class="pagetitle">
+  <h1>Customer</h1>
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a routerLink="/index">Home</a>
+      </li>
+      <li class="breadcrumb-item active">{{ message }}</li>
+    </ol>
+  </nav>
+</div>
+<section class="section">
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{ message }}</h5>
+          <div class="row">
+            <div>
+              <form [formGroup]="onSubmitForm" (ngSubmit)="onSubmit()">
+                <div class="row m-3">
+                  <div>
+                    <label class="m-2 ms-lg-0">Type</label>
+                    <div class="form-group border btn">
+                      <label class="control-label me-2">Individual</label>
+                      <input
+                        type="radio"
+                        name="type"
+                        class="me-3"
+                        value="Individual"
+                        (click)="getAccountType('Individual')"
+                        [checked]="Individual"
+                      />
+                      <label class="control-label me-2">Business</label>
+                      <input
+                        type="radio"
+                        name="type"
+                        (click)="getAccountType('Commercial')"
+                        value="Commercial"
+                        [checked]="Commercial"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="row m-3">
+                  <div class="col-12" *ngIf="Individual">
+                    <div class="form-group">
+                      <label class="control-label">PAN</label>
+                      <input
+                        placeholder="Enter PAN..."
+                        formControlName="pan"
+                        name="pan"
+                        class="form-control"
+                      />
+                      <small
+                        *ngIf="
+                          (onSubmitForm.hasError('panOrGstRequired') &&
+                            submitted) ||
+                          shouldShowError('pan')
+                        "
+                        class="text-danger"
+                      >
+                        Please enter PAN or GST number.
+                      </small>
+                    </div>
+                  </div>
+
+                  <div class="col-12" *ngIf="Commercial">
+                    <div class="form-group">
+                      <label class="control-label">GST</label>
+                      <input
+                        placeholder="Enter GST..."
+                        formControlName="gst"
+                        name="gst"
+                        class="form-control"
+                      />
+                      <small
+                        *ngIf="
+                          (onSubmitForm.hasError('panOrGstRequired') &&
+                            submitted) ||
+                          shouldShowError('gst')
+                        "
+                        class="text-danger"
+                      >
+                        Please enter PAN or GST number.
+                      </small>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row m-3">
+                  <div class="col-6">
+                    <div class="form-group">
+                      <label class="control-label" for="title">Title</label>
+                      <select
+                        id="title"
+                        formControlName="title"
+                        name="title"
+                        class="form-control"
+                      >
+                        <option value="" disabled>- Select Title -</option>
+                        <option
+                          *ngFor="let option of titleOptions"
+                          [value]="option.value"
+                        >
+                          {{ option.text }}
+                        </option>
+                      </select>
+                      <div class="text-danger">
+                        <small
+                          *ngIf="
+                            onSubmitForm.get('title')?.hasError('serverError')
+                          "
+                          >{{ onSubmitForm.get('title')?.errors?.['serverError'] }}</small
+                        >
+                        <small
+                          *ngIf="
+                            shouldShowError('title') &&
+                            !onSubmitForm.get('title')?.hasError('serverError')
+                          "
+                          >Please select title.</small
+                        >
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-6">
+                    <div class="form-group">
+                      <label class="control-label">First Name</label>
+                      <input
+                        placeholder="Enter First Name..."
+                        name="firstName "
+                        formControlName="firstName"
+                        class="form-control"
+                      /><small
+                        *ngIf="
+                          shouldShowError('firstName') &&
+                          !onSubmitForm.controls['firstName'].hasError(
+                            'pattern'
+                          ) &&
+                          !onSubmitForm
+                            .get('firstName')
+                            ?.hasError('serverError')
+                        "
+                        class="text-danger"
+                      >
+                        Please enter First Name.
+                      </small>
+                      <small
+                        class="text-danger"
+                        *ngIf="
+                          onSubmitForm.get('firstName')?.hasError('serverError')
+                        "
+                        >{{ onSubmitForm.get('firstName')?.errors?.['serverError'] }}</small
+                      >
+                      <small
+                        class="text-danger"
+                        *ngIf="
+                          onSubmitForm.controls['firstName'].hasError('pattern')
+                        "
+                      >
+                        First name not allow numbers and white space.
+                      </small>
+                    </div>
+                  </div>
+                </div>
+                <div class="row m-3">
+                  <div class="col-6">
+                    <div class="form-group">
+                      <label class="control-label">Middle Name</label>
+                      <input
+                        formControlName="middleName"
+                        placeholder="optional"
+                        class="form-control"
+                      />
+                      <small
+                        class="text-danger"
+                        *ngIf="
+                          onSubmitForm.controls['middleName'].hasError(
+                            'pattern'
+                          )
+                        "
+                      >
+                        Middle name not allow numbers.
+                      </small>
+                    </div>
+                  </div>
+
+                  <div class="col-6">
+                    <div class="form-group">
+                      <label class="control-label">Last Name</label>
+                      <input
+                        placeholder="Enter Last Name..."
+                        name="lastName "
+                        formControlName="lastName"
+                        class="form-control"
+                      /><small
+                        class="text-danger"
+                        *ngIf="
+                          onSubmitForm.get('lastName')?.hasError('serverError')
+                        "
+                        >{{ onSubmitForm.get('lastName')?.errors?.['serverError'] }}</small
+                      ><small
+                        *ngIf="
+                          shouldShowError('lastName') &&
+                          !onSubmitForm.get('lastName')?.hasError('serverError')
+                        "
+                        class="text-danger"
+                      >
+                        Please enter Last Name.
+                      </small>
+                    </div>
+                  </div>
+                </div>
+                <div class="row m-3">
+                  <div class="col-6">
+                    <div class="form-group">
+                      <label class="control-label" for="gender">Gender</label>
+                      <select
+                        id="gender"
+                        formControlName="gender"
+                        name="gender"
+                        class="form-control"
+                      >
+                        <option value="" disabled>- Select Gender -</option>
+                        <option
+                          *ngFor="let option of genderOptions"
+                          [value]="option.value"
+                        >
+                          {{ option.text }}
+                        </option>
+                      </select>
+                      <div class="text-danger">
+                        <small
+                          class="text-danger"
+                          *ngIf="
+                            onSubmitForm.get('gender')?.hasError('serverError')
+                          "
+                          >{{ onSubmitForm.get('gender')?.errors?.['serverError'] }}</small
+                        >
+                        <small
+                          *ngIf="
+                            shouldShowError('gender') &&
+                            !onSubmitForm.get('gender')?.hasError('serverError')
+                          "
+                          >Please select your gender.</small
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="form-group">
+                      <label class="control-label">Position</label>
+                      <input
+                        placeholder="Enter Position..."
+                        name="position "
+                        formControlName="position"
+                        class="form-control"
+                      /><small
+                        *ngIf="
+                          shouldShowError('position') &&
+                          !onSubmitForm.get('position')?.hasError('serverError')
+                        "
+                        class="text-danger"
+                      >
+                        Please enter Position.
+                      </small>
+                      <small
+                        class="text-danger"
+                        *ngIf="
+                          onSubmitForm.get('position')?.hasError('serverError')
+                        "
+                        >{{ onSubmitForm.get('position')?.errors?.['serverError'] }}</small
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="row m-3">
+                  <div class="col-6">
+                    <div class="form-group">
+                      <label class="control-label" for="language"
+                        >Language</label
+                      >
+                      <select
+                        id="language"
+                        formControlName="language"
+                        name="language"
+                        class="form-control"
+                      >
+                        <option value="" disabled>- Select Language -</option>
+                        <option
+                          *ngFor="let option of languageOptions"
+                          [value]="option.value"
+                        >
+                          {{ option.text }}
+                        </option>
+                      </select>
+                      <div class="text-danger">
+                        <small
+                          *ngIf="
+                            shouldShowError('language') &&
+                            !onSubmitForm
+                              .get('language')
+                              ?.hasError('serverError')
+                          "
+                          >Please select your language.</small
+                        >
+                        <small
+                          *ngIf="
+                            onSubmitForm
+                              .get('language')
+                              ?.hasError('serverError')
+                          "
+                          >{{ onSubmitForm.get('language')?.errors?.['serverError'] }}</small
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="form-group">
+                      <label class="control-label">Day Of Birth</label>
+                      <input
+                        type="date"
+                        name="dayOfBirth"
+                        formControlName="dayOfBirth"
+                        class="form-control"
+                      />
+                      <small
+                        class="text-danger"
+                        *ngIf="
+                          onSubmitForm
+                            .get('dayOfBirth')
+                            ?.hasError('serverError')
+                        "
+                        >{{ onSubmitForm.get('dayOfBirth')?.errors?.['serverError'] }}</small
+                      ><small
+                        *ngIf="
+                          shouldShowError('dayOfBirth') &&
+                          !onSubmitForm
+                            .get('dayOfBirth')
+                            ?.hasError('serverError')
+                        "
+                        class="text-danger"
+                      >
+                        Please enter your Day Of Birth.
+                      </small>
+                    </div>
+                  </div>
+                </div>
+                <div class="row m-3">
+                  <div class="col-6">
+                    <div class="form-group">
+                      <label class="control-label">Phone</label>
+                      <input
+                        placeholder="Enter Phone Number..."
+                        name="phone "
+                        formControlName="phone"
+                        type="number"
+                        class="form-control"
+                      />
+                      <small
+                        *ngIf="
+                          shouldShowError('phone') &&
+                          !onSubmitForm
+                            .get('phone')
+                            ?.hasError('minPhoneValue') &&
+                          !onSubmitForm
+                            .get('phone')
+                            ?.hasError('maxPhoneValue') &&
+                          !onSubmitForm.get('phone')?.hasError('serverError')
+                        "
+                        class="text-danger"
+                      >
+                        Please enter phone number!</small
+                      >
+                      <small
+                        class="text-danger"
+                        *ngIf="
+                          onSubmitForm.get('phone')?.hasError('serverError')
+                        "
+                        >{{ onSubmitForm.get('phone')?.errors?.['serverError'] }}</small
+                      >
+                      <small
+                        *ngIf="
+                          onSubmitForm.get('phone')?.hasError('minPhoneValue')
+                        "
+                        class="text-danger"
+                      >
+                        Phone number must have at least 10 digits.
+                      </small>
+                      <small
+                        *ngIf="
+                          onSubmitForm.get('phone')?.hasError('maxPhoneValue')
+                        "
+                        class="text-danger"
+                      >
+                        Phone number cannot exceed 12.
+                      </small>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="form-group">
+                      <label class="control-label"> Other Phone No.</label>
+                      <input
+                        placeholder="Enter Other Phone Number..."
+                        name="phoneOther "
+                        formControlName="phoneOther"
+                        type="number"
+                        class="form-control"
+                      />
+                      <small
+                        *ngIf="
+                          shouldShowError('phoneOther') &&
+                          !onSubmitForm
+                            .get('phoneOther')
+                            ?.hasError('minPhoneValue') &&
+                          !onSubmitForm
+                            .get('phoneOther')
+                            ?.hasError('maxPhoneValue') &&
+                          !onSubmitForm
+                            .get('phoneOther')
+                            ?.hasError('serverError')
+                        "
+                        class="text-danger"
+                      >
+                        Please enter second phone number!</small
+                      >
+                      <small
+                        class="text-danger"
+                        *ngIf="
+                          onSubmitForm
+                            .get('phoneOther')
+                            ?.hasError('serverError')
+                        "
+                        >{{ onSubmitForm.get('phoneOther')?.errors?.['serverError'] }}</small
+                      >
+                      <small
+                        *ngIf="
+                          onSubmitForm
+                            .get('phoneOther')
+                            ?.hasError('minPhoneValue')
+                        "
+                        class="text-danger"
+                      >
+                        Phone number must have at least 10 digits.
+                      </small>
+                      <small
+                        *ngIf="
+                          onSubmitForm
+                            .get('phoneOther')
+                            ?.hasError('maxPhoneValue')
+                        "
+                        class="text-danger"
+                      >
+                        Phone number cannot exceed 12.
+                      </small>
+                    </div>
+                  </div>
+                </div>
+                <div class="row m-3">
+                  <div class="col-6">
+                    <div class="form-group">
+                      <label class="control-label">Cell</label>
+                      <input
+                        placeholder="Enter Cell Number..."
+                        name="cell "
+                        formControlName="cell"
+                        type="number"
+                        class="form-control"
+                      /><small
+                        *ngIf="
+                          shouldShowError('cell') &&
+                          !onSubmitForm.get('cell')?.hasError('serverError')
+                        "
+                        class="text-danger"
+                      >
+                        Please enter Cell Number.
+                      </small>
+                      <small
+                        class="text-danger"
+                        *ngIf="
+                          onSubmitForm.get('cell')?.hasError('serverError')
+                        "
+                        >{{ onSubmitForm.get('cell')?.errors?.['serverError'] }}</small
+                      >
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="form-group">
+                      <label class="control-label">Fax</label>
+                      <input
+                        placeholder="Enter Fax Number..."
+                        name="fax "
+                        formControlName="fax"
+                        type="number"
+                        class="form-control"
+                      /><small
+                        *ngIf="
+                          shouldShowError('fax') &&
+                          !onSubmitForm.get('fax')?.hasError('serverError')
+                        "
+                        class="text-danger"
+                      >
+                        Please enter Fax Number.
+                      </small>
+                      <small
+                        class="text-danger"
+                        *ngIf="onSubmitForm.get('fax')?.hasError('serverError')"
+                        >{{ onSubmitForm.get('fax')?.errors?.['serverError'] }}</small
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="row m-3">
+                  <div class="col-6">
+                    <div class="form-group">
+                      <label class="control-label">Email</label>
+                      <input
+                        placeholder="Enter Email..."
+                        name="email "
+                        formControlName="email"
+                        class="form-control"
+                      /><small
+                        *ngIf="
+                          shouldShowError('email') &&
+                          !onSubmitForm.controls['email'].hasError('pattern') &&
+                          !onSubmitForm.get('email')?.hasError('serverError')
+                        "
+                        class="text-danger"
+                      >
+                        Please enter Email.
+                      </small>
+                      <small
+                        class="text-danger"
+                        *ngIf="
+                          onSubmitForm.get('email')?.hasError('serverError')
+                        "
+                        >{{ onSubmitForm.get('email')?.errors?.['serverError'] }}</small
+                      >
+                      <small
+                        class="text-danger"
+                        *ngIf="
+                          onSubmitForm.controls['email'].hasError('pattern')
+                        "
+                      >
+                        First enter 5 charactors then you can use numbers after
+                        that '&#64;', domain name then '.' and last two char.
+                      </small>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="form-group">
+                      <label class="control-label">Second Email</label>
+                      <input
+                        placeholder="Enter Second Email..."
+                        name="email2 "
+                        formControlName="email2"
+                        class="form-control"
+                      /><small
+                        *ngIf="
+                          shouldShowError('email2') &&
+                          !onSubmitForm.controls['email2'].hasError(
+                            'pattern'
+                          ) &&
+                          !onSubmitForm.get('email2')?.hasError('serverError')
+                        "
+                        class="text-danger"
+                      >
+                        Please enter Second Email. </small
+                      ><small
+                        class="text-danger"
+                        *ngIf="
+                          onSubmitForm.get('email2')?.hasError('serverError')
+                        "
+                        >{{ onSubmitForm.get('email2')?.errors?.['serverError'] }}</small
+                      ><small
+                        class="text-danger"
+                        *ngIf="
+                          onSubmitForm.controls['email2'].hasError('pattern')
+                        "
+                      >
+                        First enter 5 charactors then you can use numbers after
+                        that '&#64;', domain name then '.' and last two char.
+                      </small>
+                    </div>
+                  </div>
+                  <div
+                    asp-validation-summary="ModelOnly"
+                    class="text-danger"
+                  ></div>
+                </div>
+                <div class="row m-3">
+                  <div class="col-6">
+                    <div class="form-group">
+                      <label class="control-label">Website</label>
+                      <input
+                        placeholder="Enter Website..."
+                        name="website "
+                        formControlName="website"
+                        class="form-control"
+                      /><small
+                        *ngIf="
+                          shouldShowError('website') &&
+                          !onSubmitForm.get('website')?.hasError('serverError')
+                        "
+                        class="text-danger"
+                      >
+                        Please enter Website Name. </small
+                      ><small
+                        class="text-danger"
+                        *ngIf="
+                          onSubmitForm.get('website')?.hasError('serverError')
+                        "
+                        >{{ onSubmitForm.get('website')?.errors?.['serverError'] }}</small
+                      >
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="form-group">
+                      <label class="control-label">Photo</label>
+                      <input
+                        type="file"
+                        name="photo "
+                        (change)="onFileChange($event)"
+                        class="form-control"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="row m-3">
+                  <div class="col-12">
+                    <div class="form-group">
+                      <label class="control-label">Comments</label>
+                      <textarea
+                        name="comments "
+                        placeholder="Enter Comments..."
+                        formControlName="comments"
+                        class="form-control"
+                      ></textarea
+                      ><small
+                        class="text-danger"
+                        *ngIf="
+                          onSubmitForm.get('comments')?.hasError('serverError')
+                        "
+                        >{{ onSubmitForm.get('comments')?.errors?.['serverError'] }}</small
+                      ><small
+                        *ngIf="
+                          shouldShowError('comments') &&
+                          !onSubmitForm.get('comments')?.hasError('serverError')
+                        "
+                        class="text-danger"
+                      >
+                        Please enter Comments.
+                      </small>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <button
+                    type="submit"
+                    class="btn btn-primary"
+                    style="width: 100px; margin-left: 5%"
+                  >
+                    Save
+                  </button>
+                  <a
+                    routerLink="/customer-list"
+                    class="btn btn-danger"
+                    style="width: 100px; margin-left: 2%"
+                    >Cancel</a
+                  >
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

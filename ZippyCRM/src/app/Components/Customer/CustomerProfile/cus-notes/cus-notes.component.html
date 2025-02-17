@@ -1,0 +1,234 @@
+<p>
+  <a
+    data-bs-toggle="modal"
+    data-bs-target="#addNotesModal"
+    (click)="onAdd()"
+    class="btn btn-primary"
+    >Create Notes</a
+  >
+</p>
+<table class="table">
+  <thead>
+    <tr>
+      <th>title</th>
+      <th>Created By</th>
+      <th>Create Date</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody *ngIf="notesList.length > 0">
+    <tr *ngFor="let notes of notesList; let i = index">
+      <td>{{ notes.title }}</td>
+      <td>{{ notes.username }}</td>
+      <td>{{ notes.createDate }}</td>
+      <td>
+        <a
+          data-bs-toggle="modal"
+          data-bs-target="#addNotesModal"
+          (click)="onEdit(notes)"
+          class="fas fa-pencil-alt fa-md me-3"
+        ></a>
+        <a
+          data-bs-toggle="modal"
+          data-bs-target="#addNotesModalDetails"
+          (click)="notesDetails(notes)"
+          class="fa-solid fa-circle-info fa-lg text-info me-3 pt-2"
+        ></a>
+        <a
+          (click)="DeleteNotes(notes.notesId)"
+          class="fas fa-trash fa-md text-danger"
+        ></a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="addNotesModal"
+  tabindex="-1"
+  aria-labelledby="addNotesModalLabel"
+  aria-hidden="true"
+  #addNotesModal
+>
+  <div class="modal-dialog modal-landscape">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addNotesModalLabel">Notes</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          #closebutton
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form
+          [formGroup]="onSubmitForm"
+          *ngIf="
+            modalPopupAndMsg == 'Add Notes' || modalPopupAndMsg == 'Edit Notes'
+          "
+          (ngSubmit)="onSubmit()"
+        >
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">{{ modalPopupAndMsg }}</h5>
+                  <div class="mb-3 row">
+                    <label for="activityType" class="form-label">Title</label>
+                    <input
+                      type="hidden"
+                      formControlName="notesId"
+                      name="notesId"
+                    />
+                    <input
+                      placeholder="Enter Title..."
+                      type="text"
+                      class="form-control"
+                      formControlName="title"
+                      name="title"
+                    /><small
+                      *ngIf="
+                        shouldShowError('title') &&
+                        !onSubmitForm.get('title')?.hasError('serverError')
+                      "
+                      class="text-danger"
+                    >
+                      Please enter Title. </small
+                    ><small
+                      class="text-danger"
+                      *ngIf="onSubmitForm.get('title')?.hasError('serverError')"
+                      >{{ onSubmitForm.get('title')?.errors?.['serverError'] }}</small
+                    >
+                  </div>
+                  <div class="row">
+                    <!-- Quill Editor Container -->
+                    <div
+                      id="editor"
+                      #quillEditor
+                      (click)="onEditorTouched()"
+                    ></div>
+
+                    <!-- Hidden input field to store the Quill content -->
+                    <input
+                      type="hidden"
+                      id="descriptionInput"
+                      formControlName="description"
+                      name="description"
+                    />
+
+                    <!-- Error Message for Description Validation -->
+                    <small
+                      *ngIf="
+                        shouldShowError('description') &&
+                        !onSubmitForm
+                          .get('description')
+                          ?.hasError('serverError')
+                      "
+                      class="text-danger"
+                    >
+                      Please enter Description.
+                    </small>
+                    <small
+                      class="text-danger"
+                      *ngIf="
+                        onSubmitForm.get('description')?.hasError('serverError')
+                      "
+                      >{{ onSubmitForm.get('description')?.errors?.['serverError'] }}</small
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="submit" class="btn btn-primary">Save Notes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div
+  class="modal fade"
+  id="addNotesModalDetails"
+  tabindex="-1"
+  aria-labelledby="addNotesModalLabel"
+  aria-hidden="true"
+  #addNotesModalDetails
+>
+  <div class="modal-dialog modal-landscape">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addNotesModalLabel">Notes</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          #closebutton
+        ></button>
+      </div>
+      <div class="modal-body">
+        <section class="section profile">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="card">
+                <div class="card-body">
+                  <div class="tab-content">
+                    <h5 class="card-title">Notes Details</h5>
+                    <hr class="hr" />
+                    <div class="row mb-2">
+                      <div class="col-lg-3 col-md-4 label">Title</div>
+                      <div class="col-lg-9 col-md-8">
+                        {{ notes.title }}
+                      </div>
+                    </div>
+                    <div class="row mb-2">
+                      <div class="col-lg-3 col-md-4 label">User Name</div>
+                      <div class="col-lg-9 col-md-8">
+                        {{ notes.username }}
+                      </div>
+                    </div>
+                    <div class="row mb-2">
+                      <div class="col-lg-3 col-md-4 label">Create Date</div>
+                      <div class="col-lg-9 col-md-8">
+                        {{ notes.createDate }}
+                      </div>
+                    </div>
+                    <div class="row mb-2">
+                      <div class="col-lg-3 col-md-4 label">Update Date</div>
+                      <div class="col-lg-9 col-md-8">
+                        {{ notes.updateDate }}
+                      </div>
+                    </div>
+
+                    <div class="row mb-2 h-auto">
+                      <div class="col-lg-3 col-md-4 label">Discription</div>
+                    </div>
+                    <div class="row mb-0 pb-0 h-auto">
+                      <div class="col-lg-1 col-md-1"></div>
+                      <div class="col-lg-10 col-md-10">
+                        <div [innerHTML]="notesDescription"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>

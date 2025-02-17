@@ -1,0 +1,8 @@
+.modal-landscape {
+    max-width: 40%; /* Set the width to 80% of the viewport */
+    width: 40%; /* You can adjust the width as needed */
+}
+
+.modal-body {
+    overflow-x: auto; /* Ensure the modal body is scrollable horizontally if needed */
+}

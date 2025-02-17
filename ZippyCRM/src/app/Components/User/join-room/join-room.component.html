@@ -1,0 +1,45 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <h2 class="text-center text-dark mt-5">Welcome to ZippyChat</h2>
+      <div class="text-center mb-5 text-dark">
+        Please Join the Room to start Chatting
+      </div>
+      <div class="card my-5">
+        <form
+          [formGroup]="joinRoomForm"
+          class="card-body cardbody-color p-lg-5"
+        >
+          <div class="text-center">
+            <img
+              src="assets/img/join-chat-image-removebg-preview.png"
+              class="img-fluid profile-image-pic"
+            />
+          </div>
+          <div class="mb-3">
+            <input
+              formControlName="user"
+              type="hidden"
+              class="form-control"
+            />
+          </div>
+          <div class="mb-3">
+            <input
+              formControlName="room"
+              type="text"
+              class="form-control"
+              placeholder="Enter room name"
+            />
+          </div>
+          <button
+            type="submit" [disabled]="joinRoomForm.invalid"
+            (click)="joinRoom()"
+            class="btn btn-primary w-100"
+          >
+            Join
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

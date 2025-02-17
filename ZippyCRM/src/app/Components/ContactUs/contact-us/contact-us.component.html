@@ -1,0 +1,165 @@
+<div class="pagetitle">
+  <h1>Contact</h1>
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/index">Home</a></li>
+      <li class="breadcrumb-item">Pages</li>
+      <li class="breadcrumb-item active">Contacts</li>
+    </ol>
+  </nav>
+</div>
+<!-- End Page Title -->
+
+<section class="section contact">
+  <div class="row gy-4">
+    <div class="col-xl-6">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="info-box card">
+            <i class="bi bi-geo-alt"></i>
+            <h3>Address</h3>
+            <p>
+              213, 2nd Floor, Vraj Valencia, Sola<br />
+              Ahmedabad, Gujarat 380060
+            </p>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="info-box card">
+            <i class="bi bi-telephone"></i>
+            <h3>Call Us</h3>
+            <p>+1 5589 55488 55<br />+1 6678 254445 41</p>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="info-box card">
+            <i class="bi bi-envelope"></i>
+            <h3>Email Us</h3>
+            <p>ysoft&#64;gmail.com<br />ysoftsolution&#64;gmail.com</p>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="info-box card">
+            <i class="bi bi-clock"></i>
+            <h3>Open Hours</h3>
+            <p>Monday - Friday<br />10:00AM - 07:00PM</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-6">
+      <div class="card p-4">
+        <form
+          [formGroup]="onSubmitForm"
+          (ngSubmit)="onSubmit()"
+          class="php-email-form"
+        >
+          <div class="row gy-4">
+            <div class="col-md-6">
+              <input
+                type="text"
+                formControlName="name"
+                class="form-control"
+                placeholder="Your Name"
+              /><small
+                *ngIf="
+                  shouldShowError('name') &&
+                  !onSubmitForm.get('name')?.hasError('serverError')&&!onSubmitForm.get('name')?.errors?.['pattern']
+                "
+                class="text-danger"
+              >
+                Please enter Name. </small
+              ><small
+                class="text-danger"
+                *ngIf="onSubmitForm.get('name')?.hasError('serverError')"
+                >{{ onSubmitForm.get('name')?.errors?.['serverError'] }}</small
+              ><small
+                class="text-danger"
+                *ngIf="onSubmitForm.get('name')?.errors?.['pattern']"
+                >Enter valid Name.</small
+              >
+            </div>
+            {{ dsdsds | date }}
+            <div class="col-md-6">
+              <input
+                type="email"
+                class="form-control"
+                formControlName="email"
+                placeholder="Your Email"
+              /><small
+                *ngIf="
+                  shouldShowError('email') &&
+                  !onSubmitForm.get('email')?.hasError('serverError') && 
+                  !onSubmitForm.get('email')?.errors?.['pattern']
+                "
+                class="text-danger"
+              >
+                Please enter Email. </small
+              ><small
+                class="text-danger"
+                *ngIf="onSubmitForm.get('email')?.hasError('serverError')"
+                >{{ onSubmitForm.get('email')?.errors?.['serverError'] }}</small
+              >
+              <small
+                class="text-danger"
+                *ngIf="onSubmitForm.get('email')?.errors?.['pattern']"
+                >First enter 5 charactors then you can use numbers after that
+                '&#64;', domain name then '.' and last two char.</small
+              >
+            </div>
+
+            <div class="col-md-12">
+              <input
+                type="text"
+                class="form-control"
+                formControlName="subject"
+                placeholder="Subject"
+              /><small
+                *ngIf="
+                  shouldShowError('subject') &&
+                  !onSubmitForm.get('subject')?.hasError('serverError')
+                "
+                class="text-danger"
+              >
+                Please enter Subject. </small
+              ><small
+                class="text-danger"
+                *ngIf="onSubmitForm.get('subject')?.hasError('serverError')"
+                >{{ onSubmitForm.get('subject')?.errors?.['serverError'] }}</small
+              >
+            </div>
+
+            <div class="col-md-12">
+              <textarea
+                class="form-control"
+                formControlName="message"
+                rows="6"
+                placeholder="Message"
+              ></textarea>
+              <small
+                *ngIf="
+                  shouldShowError('message') &&
+                  !onSubmitForm.get('message')?.hasError('serverError')
+                "
+                class="text-danger"
+              >
+                Please enter Message. </small
+              ><small
+                class="text-danger"
+                *ngIf="onSubmitForm.get('message')?.hasError('serverError')"
+                >{{ onSubmitForm.get('message')?.errors?.['serverError'] }}</small
+              >
+            </div>
+            <span class="text-success margin-left" *ngIf="submittedsuccess"
+              >Message is send.</span
+            >
+            <div class="col-md-12 text-center">
+              <button type="submit">Send Message</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

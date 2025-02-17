@@ -1,0 +1,319 @@
+<p>
+  <a
+    data-bs-toggle="modal"
+    data-bs-target="#addTaskModal"
+    (click)="onAdd()"
+    class="btn btn-primary"
+    >Create Task</a
+  >
+</p>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Activity Type</th>
+      <th>Summary</th>
+      <th>Due Date</th>
+      <th>Comments</th>
+      <th>Assigned To</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody *ngIf="taskList.length > 0">
+    <tr *ngFor="let task of taskList; let i = index">
+      <td>
+        {{ task.activityType }}
+      </td>
+      <td>
+        {{ task.summary }}
+      </td>
+      <td>
+        {{ task.dueDate }}
+      </td>
+      <td>
+        {{ task.comments }}
+      </td>
+      <td>
+        {{ task.username }}
+      </td>
+      <td>
+        <a
+          data-bs-toggle="modal"
+          data-bs-target="#addTaskModal"
+          (click)="editTask(task)"
+          class="fas fa-pencil-alt fa-md me-3"
+        ></a>
+        <a
+          data-bs-toggle="modal"
+          data-bs-target="#addTaskModal"
+          (click)="taskDetails(task)"
+          class="fa-solid fa-circle-info fa-lg text-info me-3 pt-2"
+        ></a>
+        <a
+          (click)="DeleteTask(task.taskId)"
+          class="fas fa-trash fa-md text-danger"
+        ></a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="addTaskModal"
+  tabindex="-1"
+  aria-labelledby="addTaskModalLabel"
+  aria-hidden="true"
+  #addTaskModal
+>
+  <div class="modal-dialog modal-landscape">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addTaskModalLabel">Task</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          #closebutton
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form
+          [formGroup]="onSubmitForm"
+          *ngIf="modalPopupAndMsg != 'Contact Details'"
+          (ngSubmit)="onSubmit()"
+        >
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">{{ modalPopupAndMsg }}</h5>
+                  <div class="mb-3 row">
+                    <div class="col-6">
+                      <label for="activityType" class="form-label"
+                        >Task Name</label
+                      >
+                      <input
+                        placeholder="Enter Activity Type..."
+                        type="text"
+                        class="form-control"
+                        formControlName="activityType"
+                        name="activityType"
+                      /><small
+                        *ngIf="
+                          shouldShowError('activityType') &&
+                          !onSubmitForm
+                            .get('activityType')
+                            ?.hasError('serverError')
+                        "
+                        class="text-danger"
+                      >
+                        Please enter Activity Type. </small
+                      ><small
+                        class="text-danger"
+                        *ngIf="
+                          onSubmitForm
+                            .get('activityType')
+                            ?.hasError('serverError')
+                        "
+                        >{{ onSubmitForm.get('activityType')?.errors?.['serverError'] }}</small
+                      >
+                    </div>
+                    <div class="col-6">
+                      <label for="summary" class="form-label">Summary</label>
+                      <input
+                        type="hidden"
+                        formControlName="taskId"
+                        name="taskId"
+                      />
+                      <input
+                        placeholder="Enter Summary..."
+                        type="text"
+                        class="form-control"
+                        formControlName="summary"
+                        name="summary"
+                      />
+                      <small
+                        *ngIf="
+                          shouldShowError('summary') &&
+                          !onSubmitForm.get('summary')?.hasError('serverError')
+                        "
+                        class="text-danger"
+                      >
+                        Please enter Summary. </small
+                      ><small
+                        class="text-danger"
+                        *ngIf="
+                          onSubmitForm.get('summary')?.hasError('serverError')
+                        "
+                        >{{ onSubmitForm.get('summary')?.errors?.['serverError'] }}</small
+                      >
+                    </div>
+                  </div>
+                  <div class="mb-3 row">
+                    <div class="col-6">
+                      <label for="dueDate" class="form-label">Due Date</label>
+                      <input
+                        type="date"
+                        class="form-control"
+                        formControlName="dueDate"
+                        name="dueDate"
+                      /><small
+                        *ngIf="
+                          shouldShowError('dueDate') &&
+                          !onSubmitForm.get('dueDate')?.hasError('serverError')
+                        "
+                        class="text-danger"
+                      >
+                        Please enter Due Date. </small
+                      ><small
+                        class="text-danger"
+                        *ngIf="
+                          onSubmitForm.get('dueDate')?.hasError('serverError')
+                        "
+                        >{{ onSubmitForm.get('dueDate')?.errors?.['serverError'] }}</small
+                      >
+                    </div>
+                    <div class="col-6">
+                      <label for="phone" class="form-label">User Name</label>
+                      <select
+                        formControlName="userId"
+                        class="form-control"
+                        name="userId"
+                      >
+                        <option value="" disabled>- Select User -</option>
+                        <option
+                          *ngFor="
+                            let user of userOptions;
+                            trackBy: trackByUserId
+                          "
+                          [value]="user.value"
+                        >
+                          {{ user.text }}
+                        </option>
+                      </select>
+                      <div class="text-danger">
+                        <small
+                          *ngIf="
+                            shouldShowError('userId') &&
+                            !onSubmitForm.get('userId')?.hasError('serverError')
+                          "
+                          >Please select User Name.</small
+                        ><small
+                          class="text-danger"
+                          *ngIf="
+                            onSubmitForm.get('userId')?.hasError('serverError')
+                          "
+                          >{{ onSubmitForm.get('userId')?.errors?.['serverError'] }}</small
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="mb-3 row">
+                    <label for="comments" class="form-label">Comments</label>
+                    <textarea
+                      type="text"
+                      placeholder="Enter Comments..."
+                      class="form-control"
+                      formControlName="comments"
+                      name="comments"
+                    ></textarea>
+                    <small
+                      *ngIf="
+                        shouldShowError('comments') &&
+                        !onSubmitForm.get('comments')?.hasError('serverError')
+                      "
+                      class="text-danger"
+                    >
+                      Please enter Comments.
+                    </small>
+                    <small
+                      class="text-danger"
+                      *ngIf="
+                        onSubmitForm.get('comments')?.hasError('serverError')
+                      "
+                      >{{ onSubmitForm.get('comments')?.errors?.['serverError'] }}</small
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="submit" class="btn btn-primary">Save Contact</button>
+          </div>
+        </form>
+        <section
+          class="section profile"
+          *ngIf="modalPopupAndMsg == 'Contact Details'"
+        >
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="card">
+                <div class="card-body">
+                  <div class="tab-content">
+                    <h5 class="card-title">{{ modalPopupAndMsg }}</h5>
+                    <hr class="hr" />
+                    <div class="row mb-2">
+                      <div class="col-lg-3 col-md-4 label">Task Name</div>
+                      <div class="col-lg-9 col-md-8">
+                        {{ task.activityType }}
+                      </div>
+                    </div>
+                    <div class="row mb-2">
+                      <div class="col-lg-3 col-md-4 label">Summary</div>
+                      <div class="col-lg-9 col-md-8">
+                        {{ task.summary }}
+                      </div>
+                    </div>
+                    <div class="row mb-2">
+                      <div class="col-lg-3 col-md-4 label">Due Date</div>
+                      <div class="col-lg-9 col-md-8">
+                        {{ task.dueDate }}
+                      </div>
+                    </div>
+                    <div class="row mb-2">
+                      <div class="col-lg-3 col-md-4 label">Job Position</div>
+                      <div class="col-lg-9 col-md-8">
+                        {{ task.username }}
+                      </div>
+                    </div>
+
+                    <div class="row mb-2">
+                      <div class="col-lg-3 col-md-4 label">Comments</div>
+                      <div class="col-lg-9 col-md-8">
+                        {{ task.comments }}
+                      </div>
+                    </div>
+
+                    <div class="row mb-2">
+                      <div class="col-lg-3 col-md-4 label">Create Date</div>
+                      <div class="col-lg-9 col-md-8">
+                        {{ task.createDate }}
+                      </div>
+                    </div>
+
+                    <div class="row mb-2">
+                      <div class="col-lg-3 col-md-4 label">Update Date</div>
+                      <div class="col-lg-9 col-md-8">
+                        {{ task.updateDate }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,197 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\YSOFT_9\\Desktop\\Deepak Saini\\ZippyCRM_In_Angular\\ZippyCRM_API\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{E9E64D13-7B44-4789-B905-61FDB20260E9}|ZippyCRM_API.csproj|c:\\users\\ysoft_9\\desktop\\deepak saini\\zippycrm_in_angular\\zippycrm_api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{E9E64D13-7B44-4789-B905-61FDB20260E9}|ZippyCRM_API.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E9E64D13-7B44-4789-B905-61FDB20260E9}|ZippyCRM_API.csproj|c:\\users\\ysoft_9\\desktop\\deepak saini\\zippycrm_in_angular\\zippycrm_api\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E9E64D13-7B44-4789-B905-61FDB20260E9}|ZippyCRM_API.csproj|solutionrelative:services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E9E64D13-7B44-4789-B905-61FDB20260E9}|ZippyCRM_API.csproj|c:\\users\\ysoft_9\\desktop\\deepak saini\\zippycrm_in_angular\\zippycrm_api\\services\\accountservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E9E64D13-7B44-4789-B905-61FDB20260E9}|ZippyCRM_API.csproj|solutionrelative:services\\accountservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E9E64D13-7B44-4789-B905-61FDB20260E9}|ZippyCRM_API.csproj|c:\\users\\ysoft_9\\desktop\\deepak saini\\zippycrm_in_angular\\zippycrm_api\\models\\login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E9E64D13-7B44-4789-B905-61FDB20260E9}|ZippyCRM_API.csproj|solutionrelative:models\\login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E9E64D13-7B44-4789-B905-61FDB20260E9}|ZippyCRM_API.csproj|c:\\users\\ysoft_9\\desktop\\deepak saini\\zippycrm_in_angular\\zippycrm_api\\models\\changepasswordvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E9E64D13-7B44-4789-B905-61FDB20260E9}|ZippyCRM_API.csproj|solutionrelative:models\\changepasswordvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E9E64D13-7B44-4789-B905-61FDB20260E9}|ZippyCRM_API.csproj|c:\\users\\ysoft_9\\desktop\\deepak saini\\zippycrm_in_angular\\zippycrm_api\\models\\resetpasswordvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E9E64D13-7B44-4789-B905-61FDB20260E9}|ZippyCRM_API.csproj|solutionrelative:models\\resetpasswordvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E9E64D13-7B44-4789-B905-61FDB20260E9}|ZippyCRM_API.csproj|c:\\users\\ysoft_9\\desktop\\deepak saini\\zippycrm_in_angular\\zippycrm_api\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E9E64D13-7B44-4789-B905-61FDB20260E9}|ZippyCRM_API.csproj|solutionrelative:controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E9E64D13-7B44-4789-B905-61FDB20260E9}|ZippyCRM_API.csproj|c:\\users\\ysoft_9\\desktop\\deepak saini\\zippycrm_in_angular\\zippycrm_api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E9E64D13-7B44-4789-B905-61FDB20260E9}|ZippyCRM_API.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E9E64D13-7B44-4789-B905-61FDB20260E9}|ZippyCRM_API.csproj|c:\\users\\ysoft_9\\desktop\\deepak saini\\zippycrm_in_angular\\zippycrm_api\\controllers\\customercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E9E64D13-7B44-4789-B905-61FDB20260E9}|ZippyCRM_API.csproj|solutionrelative:controllers\\customercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E9E64D13-7B44-4789-B905-61FDB20260E9}|ZippyCRM_API.csproj|c:\\users\\ysoft_9\\desktop\\deepak saini\\zippycrm_in_angular\\zippycrm_api\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E9E64D13-7B44-4789-B905-61FDB20260E9}|ZippyCRM_API.csproj|solutionrelative:controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E9E64D13-7B44-4789-B905-61FDB20260E9}|ZippyCRM_API.csproj|c:\\users\\ysoft_9\\desktop\\deepak saini\\zippycrm_in_angular\\zippycrm_api\\models\\users.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E9E64D13-7B44-4789-B905-61FDB20260E9}|ZippyCRM_API.csproj|solutionrelative:models\\users.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\YSOFT_9\\Desktop\\Deepak Saini\\ZippyCRM_In_Angular\\ZippyCRM_API\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "C:\\Users\\YSOFT_9\\Desktop\\Deepak Saini\\ZippyCRM_In_Angular\\ZippyCRM_API\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-01-23T06:26:28.42Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AuthService.cs",
+              "DocumentMoniker": "C:\\Users\\YSOFT_9\\Desktop\\Deepak Saini\\ZippyCRM_In_Angular\\ZippyCRM_API\\Services\\AuthService.cs",
+              "RelativeDocumentMoniker": "Services\\AuthService.cs",
+              "ToolTip": "C:\\Users\\YSOFT_9\\Desktop\\Deepak Saini\\ZippyCRM_In_Angular\\ZippyCRM_API\\Services\\AuthService.cs",
+              "RelativeToolTip": "Services\\AuthService.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAhwBEAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-23T06:17:44.249Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AccountService.cs",
+              "DocumentMoniker": "C:\\Users\\YSOFT_9\\Desktop\\Deepak Saini\\ZippyCRM_In_Angular\\ZippyCRM_API\\Services\\AccountService.cs",
+              "RelativeDocumentMoniker": "Services\\AccountService.cs",
+              "ToolTip": "C:\\Users\\YSOFT_9\\Desktop\\Deepak Saini\\ZippyCRM_In_Angular\\ZippyCRM_API\\Services\\AccountService.cs",
+              "RelativeToolTip": "Services\\AccountService.cs",
+              "ViewState": "AgIAACcAAAAAAAAAAAAhwD0AAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-23T06:09:41.138Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "login.cs",
+              "DocumentMoniker": "C:\\Users\\YSOFT_9\\Desktop\\Deepak Saini\\ZippyCRM_In_Angular\\ZippyCRM_API\\Models\\login.cs",
+              "RelativeDocumentMoniker": "Models\\login.cs",
+              "ToolTip": "C:\\Users\\YSOFT_9\\Desktop\\Deepak Saini\\ZippyCRM_In_Angular\\ZippyCRM_API\\Models\\login.cs",
+              "RelativeToolTip": "Models\\login.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-23T06:01:24.77Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ChangePasswordVM.cs",
+              "DocumentMoniker": "C:\\Users\\YSOFT_9\\Desktop\\Deepak Saini\\ZippyCRM_In_Angular\\ZippyCRM_API\\Models\\ChangePasswordVM.cs",
+              "RelativeDocumentMoniker": "Models\\ChangePasswordVM.cs",
+              "ToolTip": "C:\\Users\\YSOFT_9\\Desktop\\Deepak Saini\\ZippyCRM_In_Angular\\ZippyCRM_API\\Models\\ChangePasswordVM.cs",
+              "RelativeToolTip": "Models\\ChangePasswordVM.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-22T14:22:38.95Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ResetPasswordVM.cs",
+              "DocumentMoniker": "C:\\Users\\YSOFT_9\\Desktop\\Deepak Saini\\ZippyCRM_In_Angular\\ZippyCRM_API\\Models\\ResetPasswordVM.cs",
+              "RelativeDocumentMoniker": "Models\\ResetPasswordVM.cs",
+              "ToolTip": "C:\\Users\\YSOFT_9\\Desktop\\Deepak Saini\\ZippyCRM_In_Angular\\ZippyCRM_API\\Models\\ResetPasswordVM.cs",
+              "RelativeToolTip": "Models\\ResetPasswordVM.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-22T14:22:28.474Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "C:\\Users\\YSOFT_9\\Desktop\\Deepak Saini\\ZippyCRM_In_Angular\\ZippyCRM_API\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "Controllers\\HomeController.cs",
+              "ToolTip": "C:\\Users\\YSOFT_9\\Desktop\\Deepak Saini\\ZippyCRM_In_Angular\\ZippyCRM_API\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "Controllers\\HomeController.cs",
+              "ViewState": "AgIAAKIAAAAAAAAAAAAAwLMAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-22T13:19:47.235Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\YSOFT_9\\Desktop\\Deepak Saini\\ZippyCRM_In_Angular\\ZippyCRM_API\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\YSOFT_9\\Desktop\\Deepak Saini\\ZippyCRM_In_Angular\\ZippyCRM_API\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-21T09:27:24.269Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "CustomerController.cs",
+              "DocumentMoniker": "C:\\Users\\YSOFT_9\\Desktop\\Deepak Saini\\ZippyCRM_In_Angular\\ZippyCRM_API\\Controllers\\CustomerController.cs",
+              "RelativeDocumentMoniker": "Controllers\\CustomerController.cs",
+              "ToolTip": "C:\\Users\\YSOFT_9\\Desktop\\Deepak Saini\\ZippyCRM_In_Angular\\ZippyCRM_API\\Controllers\\CustomerController.cs",
+              "RelativeToolTip": "Controllers\\CustomerController.cs",
+              "ViewState": "AgIAADwAAAAAAAAAAAArwEsAAABZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-21T07:18:30.239Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "AccountController.cs",
+              "DocumentMoniker": "C:\\Users\\YSOFT_9\\Desktop\\Deepak Saini\\ZippyCRM_In_Angular\\ZippyCRM_API\\Controllers\\AccountController.cs",
+              "RelativeDocumentMoniker": "Controllers\\AccountController.cs",
+              "ToolTip": "C:\\Users\\YSOFT_9\\Desktop\\Deepak Saini\\ZippyCRM_In_Angular\\ZippyCRM_API\\Controllers\\AccountController.cs",
+              "RelativeToolTip": "Controllers\\AccountController.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAAA8AAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-20T13:27:32.385Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Users.cs",
+              "DocumentMoniker": "C:\\Users\\YSOFT_9\\Desktop\\Deepak Saini\\ZippyCRM_In_Angular\\ZippyCRM_API\\Models\\Users.cs",
+              "RelativeDocumentMoniker": "Models\\Users.cs",
+              "ToolTip": "C:\\Users\\YSOFT_9\\Desktop\\Deepak Saini\\ZippyCRM_In_Angular\\ZippyCRM_API\\Models\\Users.cs",
+              "RelativeToolTip": "Models\\Users.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAA/AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-20T13:25:06.223Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

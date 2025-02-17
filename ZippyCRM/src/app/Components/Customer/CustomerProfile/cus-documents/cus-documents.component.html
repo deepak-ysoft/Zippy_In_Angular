@@ -1,0 +1,229 @@
+<div class="row ms-3">
+  <div class="col-6 create-input">
+    <form [formGroup]="folderForm">
+      <div class="row">
+        <div class="col-4">
+          <input
+            type="text"
+            class="inputBox"
+            placeholder="Enter Folder Name..."
+            id="folderName"
+            formControlName="folderName"
+            #folderNameInput
+          />
+        </div>
+        <div class="col-auto">
+          <!-- Disable the span if form is invalid -->
+          <span
+            (click)="createFolder(folderNameInput.value)"
+            [class.disabled]="
+              folderForm.get('folderName')?.invalid ||
+              folderForm.get('folderName')?.pristine
+            "
+            [style.pointer-events]="
+              folderForm.get('folderName')?.invalid ||
+              folderForm.get('folderName')?.pristine
+                ? 'none'
+                : 'auto'
+            "
+            class="disabledSpan"
+          >
+            <img
+              class="create-folder-icon"
+              src="assets/img/create-folder-icon.png"
+              alt="Create Folder"
+            />
+          </span>
+        </div>
+        <div class="col-auto pt-2 text-danger">
+          <small *ngIf="folderForm.get('folderName')?.hasError('maxlength')"
+            >Folder name cannot be longer than 50 characters.</small
+          >
+          <small *ngIf="folderForm.get('folderName')?.hasError('noDot')"
+            >Folder name cannot contain a dot ('.').</small
+          >
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="col-2"></div>
+  <div class="col-auto search-input">
+    <input
+      type="text"
+      class="inputBox"
+      placeholder="Search files or folders"
+      (keyup)="onSearchInput($event)"
+    />
+    <i class="fas fa-search"></i>
+  </div>
+</div>
+
+<strong>
+  <div class="row mt-3 ms-4">
+    <div class="col-6 p-0">
+      <!-- Back Button -->
+      <button
+        (click)="getback()"
+        [disabled]="folderHistory.length === 0"
+        class="button-no-style me-3"
+      >
+        <img class="back-button-img" src="assets/img/back-button.png" /></button
+      ><span>Files</span>
+    </div>
+    <div class="col-3 p-0">Size</div>
+    <div class="col-3">Date And Time</div>
+  </div>
+</strong>
+<hr class="hr mt-0" />
+<div class="ms-4">
+  <div class="row hoverTheLine" *ngIf="currentFolderContent.length > 0">
+    <div
+      class="row"
+      (contextmenu)="openContextMenu($event, documents)"
+      *ngFor="let documents of currentFolderContent"
+    >
+      <div class="col-6">
+        <div class="card-text">
+          <div class="dropdown">
+            <div class="row">
+              <i class="col-1" *ngIf="getFileExtension(documents.name) == ''"
+                ><img
+                  class="icon"
+                  src="assets/img/folder-vector-icon-png-image-removebg-preview.png"
+              /></i>
+              <i class="col-1" *ngIf="getFileExtension(documents.name) != ''"
+                ><img class="icon iconfile" src="assets/img/file-icon.png"
+              /></i>
+              &nbsp;
+              <form class="col-auto p-0" [formGroup]="renameForm">
+                <!-- Folder name is clickable to fetch inner files -->
+                <span *ngIf="editFolderName === documents.name" class="ms-2"
+                  ><input
+                    class="me-2 renameInput p-0"
+                    formControlName="fName"
+                    placeholder="Enter new name"
+                  />
+                  <button
+                    [disabled]="renameForm.invalid"
+                    class="btn btn-primary me-2 mb-1 pe-1 ps-1 p-0"
+                    (click)="saveName(documents)"
+                  >
+                    Save
+                  </button>
+                  <button
+                    class="btn btn-danger mb-1 pe-1 ps-1 p-0"
+                    (click)="cancelEdit()"
+                  >
+                    Cancel
+                  </button></span
+                >
+                <small
+                  class="ms-2 text-danger"
+                  *ngIf="
+                    renameForm.get('fName')?.hasError('maxlength') &&
+                    editFolderName == documents.name
+                  "
+                  >Max 50 characters.</small
+                >
+                <small
+                  class="ms-2 text-danger"
+                  *ngIf="
+                    renameForm.get('fName')?.hasError('noDot') &&
+                    editFolderName == documents.name
+                  "
+                  >Dot ('.') not allowed.</small
+                >
+              </form>
+              <a
+                (click)="getInnerFiles(documents.path)"
+                class="folder col-auto"
+                *ngIf="
+                  getFileExtension(documents.name) == '' &&
+                  editFolderName != documents.name
+                "
+                >{{ documents.name }}</a
+              >
+              <span
+                class="file-name col-auto"
+                *ngIf="
+                  getFileExtension(documents.name) != '' &&
+                  editFolderName != documents.name
+                "
+              >
+                {{ documents.name }}
+              </span>
+              <input type="hidden" [(ngModel)]="documents.path" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-3 pt-2 ps-3">
+        <span *ngIf="getFileExtension(documents.name) != ''"
+          >{{ documents.sizeInBytes.toString() }} KB</span
+        >
+      </div>
+      <div class="col-3 pt-2">
+        {{
+          documents.createdDateTime?.toString() | date : "dd-MM-yyyy hh:mm a"
+        }}
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Input field for renaming -->
+
+<input type="text" id="renameInput" style="display: none" />
+<button id="renameButton" style="display: none">Rename</button>
+<!-- Custom Context Menu -->
+<div
+  class="context-menu modal-max-width"
+  *ngIf="isContextMenuVisible"
+  [ngStyle]="{ top: contextMenuPosition.top, left: contextMenuPosition.left }"
+>
+  <div class="context-menu-header ms-1">
+    <div class="context-menu-body">
+      <ul aria-labelledby="dropdownMenuButton">
+        <!-- Dropdown menu options like copy, paste, etc. -->
+        <li>
+          <a
+            class="dropdown-item mb-2"
+            (click)="
+              copyFolder(selectedFolder.name, selectedFolder.path, 'Copy')
+            "
+            >Copy</a
+          >
+        </li>
+        <li>
+          <a
+            class="dropdown-item mb-2"
+            (click)="
+              moveFolder(selectedFolder.name, selectedFolder.path, 'Move')
+            "
+            >Move</a
+          >
+        </li>
+        <li *ngIf="getFileExtension(selectedFolder.name) == ''">
+          <a
+            class="dropdown-item mb-2"
+            (click)="onPasteFolder(selectedFolder.name, selectedFolder.path)"
+            data-folder-name="item.Name"
+            >Paste</a
+          >
+        </li>
+        <li>
+          <a class="dropdown-item mb-2" (click)="startEditing(selectedFolder)"
+            >Rename</a
+          >
+        </li>
+        <li>
+          <a
+            class="dropdown-item mb-2"
+            (click)="deleteFolder(selectedFolder.name, selectedFolder.path)"
+            >Delete</a
+          >
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,137 @@
+.search-input {
+   position: relative;
+   width: 100%;
+   max-width: 300px; /* Adjust the width as needed */
+}
+
+.search-input i {
+   position: absolute;
+   top: 50%;
+   left: 25px; /* Adjust for icon padding */
+   transform: translateY(-50%);
+   color: #888; /* Icon color */
+}
+
+.search-input input {
+   width: 100%;
+   padding: 8px 12px 8px 35px; /* Left padding to make space for icon */
+   border: 1px solid #ccc;
+   border-radius: 4px;
+   box-sizing: border-box;
+}
+
+.search-input input:focus {
+   outline: none;
+   border-color: #007bff; /* Focus color */
+}
+
+.inputBox:hover {
+   box-shadow: 0px 4px 8px rgba(195, 195, 195, 0.6); /* Customize the offset, blur, and color */
+}
+.create-input input {
+   width: 100%;
+   padding: 4px 12px 4px 10px; /* Left padding to make space for icon */
+   border: 1px solid #ccc;
+   border-radius: 4px;
+   box-sizing: border-box;
+}
+.create-input input:focus {
+   outline: none;
+   border-color: #007bff; /* Focus color */
+}
+
+.folderColor {
+   columns: yellow;
+}
+.icon {
+   max-height: 40px;
+   padding-bottom: 6px;
+}
+.iconfile {
+   max-height: 33px;
+   padding-bottom: 10px;
+   padding-left: 2px;
+}
+.hoverTheLine :hover {
+   background-color: #f2f2f2;
+}
+.button-no-style {
+   border: none; /* Remove border */
+   background: none; /* Remove background */
+   padding: 0; /* Optional: remove padding */
+   margin: 0; /* Optional: remove margin */
+   color: inherit; /* Optional: inherit text color from parent */
+   font: inherit; /* Optional: inherit font styles from parent */
+}
+
+.back-button-img {
+   height: 20px;
+   cursor: pointer !important; /* Change cursor to pointer on hover */
+}
+.create-folder-icon {
+   height: 45px;
+   margin: -7px;
+   cursor: pointer !important;
+}
+.context-menu {
+   position: absolute;
+   width: 200px;
+   padding: 10px;
+   background-color: #fff;
+   border: 1px solid #ddd;
+   border-radius: 5px;
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+   z-index: 1000;
+}
+
+.context-menu-header {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+}
+
+.close-btn {
+   background: none;
+   border: none;
+   font-size: 1.2rem;
+   cursor: pointer;
+}
+
+.context-menu-body {
+   margin-top: 10px;
+}
+ul {
+   list-style-type: none;
+}
+.modal-max-width {
+   max-width: 10%;
+}
+ol,
+ul {
+   padding-left: 1rem !important;
+}
+
+a {
+   color: black;
+}
+.disabledSpan.disabled {
+   opacity: 0.5;
+   cursor: not-allowed;
+}
+.renameInput {
+   height: 70%;
+}
+.inline-form {
+   display: flex;
+   align-items: center;
+   gap: 0.5rem; /* Adjust spacing between input and buttons */
+}
+
+.renameInput {
+   flex: 1 1 auto;
+   min-width: 150px; /* Ensures input width but keeps inline */
+}
+
+button {
+   white-space: nowrap; /* Prevents buttons from breaking lines */
+}

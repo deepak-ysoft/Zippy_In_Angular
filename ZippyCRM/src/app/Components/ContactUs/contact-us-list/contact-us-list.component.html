@@ -1,0 +1,159 @@
+<div class="pagetitle">
+  <h1>ContactUs List</h1>
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/index">Home</a></li>
+      <li class="breadcrumb-item active">ContactUs List</li>
+    </ol>
+  </nav>
+</div>
+<section class="section">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body mt-3">
+          <!-- Search box and entries dropdown -->
+          <div class="row mb-3">
+            <div class="col-md-2">
+              <div class="row">
+                <div class="col-md-6">
+                  <label for="entries" class="form-label pt-1"
+                    >Show entries:</label
+                  >
+                </div>
+                <div class="col-md-6">
+                  <select
+                    class="form-select"
+                    id="entries"
+                    [(ngModel)]="pageSize"
+                    (change)="loadPage(1)"
+                  >
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-8"></div>
+            <div class="col-md-2">
+              <div class="row">
+                <div class="col-md-3">
+                  <label for="search" class="form-label pt-1">Search:</label>
+                </div>
+                <div class="col-md-9">
+                  <input
+                    type="text"
+                    id="search"
+                    class="form-control"
+                    [(ngModel)]="searchTerm"
+                    (input)="loadPage(1)"
+                    placeholder="Search name..."
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ContactUs Table -->
+          <table id="ContactUsDatatable" class="table" cellspacing="0">
+            <thead class="container-fluid text-center">
+              <tr class="row">
+                <th class="col">Name</th>
+                <th class="col">Email</th>
+                <th class="col">Subject</th>
+                <th class="col">Message</th>
+                <th class="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody
+              class="container-fluid text-center"
+              *ngIf="contactUsList && contactUsList.length > 0"
+            >
+              <tr class="row" *ngFor="let message of contactUsList">
+                <td class="col">
+                  {{ message.name }}
+                </td>
+                <td class="col">{{ message.email }}</td>
+                <td class="col">{{ message.subject }}</td>
+                <td
+                  class="col text-truncate"
+                  style="
+                    max-width: 305px;
+                    overflow: hidden;
+                    white-space: nowrap;
+                  "
+                >
+                  {{ message.message }}
+                </td>
+
+                <td class="col">
+                  <a
+                    class="fa-solid fa-circle-info fa-lg text-info   pt-2"
+                    (click)="notificationDetails(message)"
+                  ></a>
+                  &nbsp; &nbsp;
+                  &nbsp; &nbsp;
+                  <a
+                    class="fas fa-trash fa-lg text-danger"
+                    (click)="deleteNotification(message.id)"
+                  ></a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <!-- Pagination Controls -->
+          <nav aria-label="Page navigation example" *ngIf="totalPages > 1">
+            <ul class="pagination alignment">
+              <li class="page-item" [class.disabled]="currentPage === 1">
+                <a
+                  class="page-link cursor-pointer"
+                  (click)="loadPage(currentPage - 1)"
+                  >Previous</a
+                >
+              </li>
+              <li
+                class="page-item"
+                *ngFor="let page of getDisplayedPages(); let i = index"
+                [class.active]="page === currentPage"
+              >
+                <a class="page-link cursor-pointer" (click)="loadPage(page)">{{
+                  page
+                }}</a>
+              </li>
+              <li
+                *ngIf="totalPages > 3 && currentPage < totalPages - 2"
+                class="page-item disabled"
+              >
+                <span class="page-link cursor-pointer">...</span>
+              </li>
+              <li
+                *ngIf="currentPage < totalPages - 2"
+                class="page-item"
+                [class.active]="currentPage === totalPages"
+              >
+                <a
+                  class="page-link cursor-pointer"
+                  (click)="loadPage(totalPages)"
+                  >{{ totalPages }}</a
+                >
+              </li>
+              <li
+                class="page-item"
+                [class.disabled]="currentPage === totalPages"
+              >
+                <a
+                  class="page-link cursor-pointer"
+                  (click)="loadPage(currentPage + 1)"
+                  >Next</a
+                >
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,450 @@
+<!-- Trigger Button -->
+<a
+  class="fas fa-user-plus fa-xl text-primary float-end pe-1 mt-2 mb-3 text-success"
+  data-bs-toggle="modal"
+  data-bs-target="#addContactModal"
+  (click)="onAdd()"
+>
+</a>
+<table class="table">
+  <thead class="text-center">
+    <tr>
+      <th>Title</th>
+      <th>Contact Name</th>
+      <th>Email</th>
+      <th>Phone</th>
+      <th>Job Position</th>
+      <th>Mobile</th>
+      <th>Internal Notes</th>
+
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody class="text-center" *ngIf="ContectList.length > 0">
+    <tr *ngFor="let contact of ContectList; let i = index">
+      <td>{{ contact.title }}</td>
+      <td>{{ contact.contactName }}</td>
+      <td>{{ contact.email }}</td>
+      <td>{{ contact.phone }}</td>
+      <td>{{ contact.jobPosition }}</td>
+      <td>{{ contact.mobile }}</td>
+      <td>{{ contact.internalNotes }}</td>
+      <td>
+        <a
+          class="fas fa-pencil-alt fa-md me-3"
+          data-bs-toggle="modal"
+          data-bs-target="#addContactModal"
+          (click)="EditContact(contact)"
+        ></a>
+        <a
+          class="fa-solid fa-circle-info fa-lg text-info"
+          data-bs-toggle="modal"
+          data-bs-target="#addContactModal"
+          (click)="ContactDetails(contact)"
+        ></a>
+        <a
+          class="fas fa-trash fa-md text-danger ms-3"
+          (click)="DeleteContact(contact.contactId)"
+        ></a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="addContactModal"
+  tabindex="-1"
+  aria-labelledby="addContactModalLabel"
+  aria-hidden="true"
+  #addContactModal
+>
+  <div class="modal-dialog modal-landscape">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addContactModalLabel">Contact</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          #closebutton
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form
+          [formGroup]="onSubmitForm"
+          *ngIf="
+            modalPopupAndMsg == 'Edit Contact' ||
+            modalPopupAndMsg == 'Create Contact'
+          "
+          (ngSubmit)="onSubmit()"
+        >
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">{{ modalPopupAndMsg }}</h5>
+                  <div class="mb-3 row">
+                    <div class="col-6">
+                      <label for="title" class="form-label">Title</label>
+                      <select
+                        id="title"
+                        formControlName="title"
+                        class="form-control"
+                      >
+                        <option value="" disabled>- Select Title -</option>
+                        <option value="Mr">Mr</option>
+                        <option value="Miss">Miss</option>
+                        <option value="Ms">Ms</option>
+                        <option value="Mrs">Mrs</option>
+                      </select>
+                      <div class="text-danger">
+                        <small
+                          *ngIf="
+                            shouldShowError('title') &&
+                            !onSubmitForm.get('title')?.hasError('serverError')
+                          "
+                          >Please select title.</small
+                        ><small
+                          *ngIf="
+                            onSubmitForm.get('title')?.hasError('serverError')
+                          "
+                          >{{ onSubmitForm.get('title')?.errors?.['serverError'] }}</small
+                        >
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <label for="contactName" class="form-label"
+                        >Contact Name</label
+                      >
+                      <input
+                        placeholder="Enter Name..."
+                        type="text"
+                        class="form-control"
+                        formControlName="contactName"
+                        name="contactName"
+                        id="contactName"
+                      />
+                      <small
+                        *ngIf="
+                          shouldShowError('contactName') &&
+                          !onSubmitForm
+                            .get('contactName')
+                            ?.hasError('serverError')
+                        "
+                        class="text-danger"
+                      >
+                        Please enter Contact Name. </small
+                      ><small
+                        class="text-danger"
+                        *ngIf="
+                          onSubmitForm
+                            .get('contactName')
+                            ?.hasError('serverError')
+                        "
+                        >{{ onSubmitForm.get('contactName')?.errors?.['serverError'] }}</small
+                      >
+                    </div>
+                  </div>
+                  <div class="mb-3 row">
+                    <div class="col-6">
+                      <label for="phone" class="form-label">Phone</label>
+                      <input
+                        placeholder="Enter phone Number..."
+                        type="text"
+                        class="form-control"
+                        formControlName="phone"
+                        name="phone"
+                      />
+                      <small
+                        *ngIf="!onSubmitForm.get('phone')?.errors?.['pattern'] &&
+                        !onSubmitForm
+                          .get('phone')
+                          ?.hasError('minPhoneValue') &&
+                        !onSubmitForm
+                          .get('phone')
+                          ?.hasError('maxPhoneValue') &&
+                        shouldShowError('phone')  &&!onSubmitForm
+                            .get('phone')
+                            ?.hasError('serverError')
+                      "
+                        class="text-danger"
+                      >
+                        Please enter phone number.
+                      </small>
+                      <small
+                        class="text-danger"
+                        *ngIf="
+                          onSubmitForm.get('phone')?.hasError('serverError')
+                        "
+                        >{{ onSubmitForm.get('phone')?.errors?.['serverError'] }}</small
+                      >
+                      <small
+                        *ngIf="
+                          onSubmitForm.get('phone')?.hasError('minPhoneValue')
+                        "
+                        class="text-danger"
+                      >
+                        Phone number must have at least 10 digits.
+                      </small>
+                      <small
+                        *ngIf="
+                          onSubmitForm.get('phone')?.hasError('maxPhoneValue')
+                        "
+                        class="text-danger"
+                      >
+                        Phone number cannot exceed 12.
+                      </small>
+                      <small
+                        *ngIf="onSubmitForm.get('phone')?.errors?.['pattern']"
+                        class="text-danger"
+                      >
+                        Phone number can contain only numbers, spaces, and an
+                        optional '+' sign at the start.
+                      </small>
+                    </div>
+                    <div class="col-6">
+                      <label for="mobile" class="form-label">Mobile</label>
+                      <input
+                        placeholder="Enter Mobile Number..."
+                        type="text"
+                        class="form-control"
+                        formControlName="mobile"
+                        name="mobile"
+                      />
+                      <small
+                        *ngIf="!onSubmitForm.get('mobile')?.errors?.['pattern'] &&
+                          !onSubmitForm
+                            .get('mobile')
+                            ?.hasError('minPhoneValue') &&
+                          !onSubmitForm
+                            .get('mobile')
+                            ?.hasError('maxPhoneValue') &&
+                          shouldShowError('mobile')&&!onSubmitForm.get('mobile')?.hasError('serverError')
+                        "
+                        class="text-danger"
+                      >
+                        Please enter mobile number!</small
+                      >
+                      <small
+                        class="text-danger"
+                        *ngIf="
+                          onSubmitForm.get('mobile')?.hasError('serverError')
+                        "
+                        >{{ onSubmitForm.get('mobile')?.errors?.['serverError'] }}</small
+                      >
+                      <small
+                        *ngIf="
+                          onSubmitForm.get('mobile')?.hasError('minPhoneValue')
+                        "
+                        class="text-danger"
+                      >
+                        mobile number must have at least 10 digits.
+                      </small>
+                      <small
+                        *ngIf="
+                          onSubmitForm.get('mobile')?.hasError('maxPhoneValue')
+                        "
+                        class="text-danger"
+                      >
+                        Mobile number cannot exceed 12.
+                      </small>
+                      <small
+                        *ngIf="onSubmitForm.get('mobile')?.errors?.['pattern']"
+                        class="text-danger"
+                      >
+                        Only numbers and an optional + at the start are allowed.
+                      </small>
+                    </div>
+                  </div>
+                  <div class="mb-3 row">
+                    <div class="col-6">
+                      <label for="email" class="form-label">Email</label>
+                      <input
+                        type="hidden"
+                        formControlName="contactId"
+                        name="contactId"
+                      />
+                      <input
+                        placeholder="Enter Email..."
+                        type="email"
+                        class="form-control"
+                        formControlName="email"
+                        name="email"
+                        required
+                      />
+                      <small
+                        *ngIf="
+                          shouldShowError('email') &&
+                          !onSubmitForm.controls['email'].hasError('pattern') &&
+                          !onSubmitForm.get('email')?.hasError('serverError')
+                        "
+                        class="text-danger"
+                      >
+                        Please enter Email. </small
+                      ><small
+                        class="text-danger"
+                        *ngIf="
+                          onSubmitForm.get('email')?.hasError('serverError')
+                        "
+                        >{{ onSubmitForm.get('email')?.errors?.['serverError'] }}</small
+                      >
+                      <small
+                        class="text-danger"
+                        *ngIf="
+                          onSubmitForm.controls['email'].hasError('pattern')
+                        "
+                      >
+                        First enter 5 charactors then you can use numbers after
+                        that '&#64;', domain name then '.' and last two char.
+                      </small>
+                    </div>
+
+                    <div class="col-6">
+                      <label for="jobPosition" class="form-label"
+                        >Job Position</label
+                      >
+                      <input
+                        placeholder="Enter Job Position..."
+                        type="text"
+                        class="form-control"
+                        formControlName="jobPosition"
+                        name="jobPosition"
+                      />
+                      <small
+                        *ngIf="
+                          shouldShowError('jobPosition') &&
+                          !onSubmitForm
+                            .get('jobPosition')
+                            ?.hasError('serverError')
+                        "
+                        class="text-danger"
+                      >
+                        Please enter job Position.
+                      </small>
+                      <small
+                        class="text-danger"
+                        *ngIf="
+                          onSubmitForm
+                            .get('jobPosition')
+                            ?.hasError('serverError')
+                        "
+                        >{{ onSubmitForm.get('jobPosition')?.errors?.['serverError'] }}</small
+                      >
+                    </div>
+                  </div>
+
+                  <div class="mb-3 row">
+                    <label for="internalNotes" class="form-label"
+                      >Internal Notes</label
+                    >
+                    <textarea
+                      class="form-control"
+                      formControlName="internalNotes"
+                      placeholder="Enter Internal Notes"
+                      name="internalNotes"
+                    ></textarea>
+                    <small
+                      *ngIf="
+                        shouldShowError('internalNotes') &&
+                        !onSubmitForm
+                          .get('internalNotes')
+                          ?.hasError('serverError')
+                      "
+                      class="text-danger"
+                    >
+                      Please enter Internal Notes.
+                    </small>
+                    <small
+                      class="text-danger"
+                      *ngIf="
+                        onSubmitForm
+                          .get('internalNotes')
+                          ?.hasError('serverError')
+                      "
+                      >{{ onSubmitForm.get('internalNotes')?.errors?.['serverError'] }}</small
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="submit" class="btn btn-primary">Save Contact</button>
+          </div>
+        </form>
+        <section
+          class="section profile"
+          *ngIf="modalPopupAndMsg == 'Contact Details'"
+        >
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="card">
+                <div class="card-body">
+                  <div class="tab-content">
+                    <h5 class="card-title">{{ modalPopupAndMsg }}</h5>
+                    <hr class="hr" />
+                    <div class="row mb-2">
+                      <div class="col-lg-3 col-md-4 label">Contact Name</div>
+                      <div class="col-lg-9 col-md-8">
+                        {{ contact.contactName }}
+                      </div>
+                    </div>
+                    <div class="row mb-2">
+                      <div class="col-lg-3 col-md-4 label">Email</div>
+                      <div class="col-lg-9 col-md-8">
+                        {{ contact.email }}
+                      </div>
+                    </div>
+                    <div class="row mb-2">
+                      <div class="col-lg-3 col-md-4 label">Title</div>
+                      <div class="col-lg-9 col-md-8">
+                        {{ contact.title }}
+                      </div>
+                    </div>
+                    <div class="row mb-2">
+                      <div class="col-lg-3 col-md-4 label">Job Position</div>
+                      <div class="col-lg-9 col-md-8">
+                        {{ contact.jobPosition }}
+                      </div>
+                    </div>
+
+                    <div class="row mb-2">
+                      <div class="col-lg-3 col-md-4 label">Phone</div>
+                      <div class="col-lg-9 col-md-8">
+                        {{ contact.phone }}
+                      </div>
+                    </div>
+
+                    <div class="row mb-2">
+                      <div class="col-lg-3 col-md-4 label">Mobile</div>
+                      <div class="col-lg-9 col-md-8">
+                        {{ contact.mobile }}
+                      </div>
+                    </div>
+
+                    <div class="row mb-2">
+                      <div class="col-lg-3 col-md-4 label">Internal Notes</div>
+                      <div class="col-lg-9 col-md-8">
+                        {{ contact.internalNotes }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>

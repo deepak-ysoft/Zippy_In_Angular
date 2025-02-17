@@ -1,0 +1,13 @@
+a {
+    text-decoration: none !important;
+}
+
+.overflow {
+    max-height: 500px !important;
+    overflow: auto;
+}
+.create-room-icon {
+    max-width: 20px;
+}
+
+

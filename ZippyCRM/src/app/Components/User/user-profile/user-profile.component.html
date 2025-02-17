@@ -1,0 +1,710 @@
+<div class="pagetitle">
+  <h1>Profile</h1>
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/index">Home</a></li>
+      <li class="breadcrumb-item">Users</li>
+      <li class="breadcrumb-item active">Profile</li>
+    </ol>
+  </nav>
+</div>
+<!-- End Page Title -->
+
+<section class="section profile">
+  <div class="row">
+    <div class="col-xl-4">
+      <div class="card">
+        <div
+          class="card-body profile-card pt-4 d-flex flex-column align-items-center"
+        >
+          <!-- Profile Image -->
+          <img
+            [src]="loggedUser.user.imagePath"
+            style="height: 120px; width: 120px"
+            class="rounded-circle mb-3 cursor-pointer"
+            data-bs-toggle="modal"
+            data-bs-target="#imageModal"
+            alt="User Image"
+          />
+          <div
+            class="modal fade"
+            id="imageModal"
+            aria-labelledby="imageModalLabel"
+          >
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-body">
+                  <img
+                    style="height: 500px !important; width: 500px !important"
+                    [src]="loggedUser.user.imagePath"
+                    class="img-fluid"
+                    alt="User Image"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <h3>{{ loggedUser.user.username }}</h3>
+          <h3>{{ loggedUser.userJob }}</h3>
+          <div class="social-links mt-2">
+            <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+            <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+            <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+            <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-8">
+      <div class="card">
+        <div class="card-body pt-3">
+          <!-- Bordered Tabs -->
+          <ul class="nav nav-tabs nav-tabs-bordered" id="profileTabs">
+            <li class="nav-item">
+              <button
+                class="nav-link active"
+                id="btnOverview"
+                data-bs-toggle="tab"
+                data-bs-target="#profile-overview"
+              >
+                Overview
+              </button>
+            </li>
+
+            <li class="nav-item">
+              <button
+                class="nav-link"
+                id="btnEditProfile"
+                data-bs-toggle="tab"
+                data-bs-target="#profile-edit"
+              >
+                Edit Profile
+              </button>
+            </li>
+
+            <li class="nav-item">
+              <button
+                class="nav-link"
+                id="btnSettings"
+                data-bs-toggle="tab"
+                data-bs-target="#profile-settings"
+              >
+                Settings
+              </button>
+            </li>
+            <li class="nav-item">
+              <button
+                class="nav-link"
+                id="btnChangePassword"
+                data-bs-toggle="tab"
+                data-bs-target="#profile-change-password"
+              >
+                Change Password
+              </button>
+            </li>
+          </ul>
+          <div class="tab-content pt-2">
+            <div
+              class="tab-pane fade show active profile-overview"
+              id="profile-overview"
+            >
+              <h5 class="card-title">Discription</h5>
+              <p class="small fst-italic">
+                {{ loggedUser.user.discription }}
+              </p>
+
+              <h5 class="card-title">Profile Details</h5>
+
+              <div class="row">
+                <div class="col-lg-3 col-md-4 label">User Name</div>
+                <div class="col-lg-9 col-md-8">
+                  {{ loggedUser.user.username }}
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-3 col-md-4 label">Company</div>
+                <div class="col-lg-9 col-md-8">
+                  {{ loggedUser.user.company }}
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-3 col-md-4 label">Job</div>
+                <div class="col-lg-9 col-md-8">
+                  {{ loggedUser.userJob }}
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-3 col-md-4 label">Country</div>
+                <div class="col-lg-9 col-md-8">
+                  {{ loggedUser.user.country }}
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-3 col-md-4 label">Address</div>
+                <div class="col-lg-9 col-md-8">
+                  {{ loggedUser.user.address }}
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-3 col-md-4 label">Phone</div>
+                <div class="col-lg-9 col-md-8">
+                  {{ loggedUser.user.phone }}
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-3 col-md-4 label">Email</div>
+                <div class="col-lg-9 col-md-8">
+                  {{ loggedUser.user.email }}
+                </div>
+              </div>
+            </div>
+
+            <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
+              <!-- Profile Edit Form -->
+              <form [formGroup]="onSubmitForm" (ngSubmit)="onSubmit()">
+                <div class="row mb-3">
+                  <label
+                    for="profileImage"
+                    class="col-md-4 col-lg-3 col-form-label"
+                    >Profile</label
+                  >
+                  <div class="col-md-8 col-lg-9">
+                    <img
+                      *ngIf="selectedFile"
+                      [src]="imagePreview"
+                      style="height: 45px; width: 45px"
+                      class="rounded-circle cursor-pointer"
+                      (click)="fileInput.click()"
+                      alt="User Image"
+                    />
+                    <img
+                      *ngIf="selectedFile == null"
+                      [src]="loggedUser.user.imagePath"
+                      style="height: 45px; width: 45px"
+                      class="rounded-circle cursor-pointer"
+                      (click)="fileInput.click()"
+                      alt="User Image"
+                    />
+
+                    <span class="custom-file-upload">
+                      <input
+                        #fileInput
+                        type="file"
+                        (change)="onFileChange($event)"
+                        formControlName="photo"
+                        name="photo"
+                        id="fileInput"
+                        class="custom-file-input"
+                        style="display: none"
+                      />
+                    </span>
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <label class="col-md-4 col-lg-3 col-form-label"
+                    >Full Name</label
+                  >
+                  <div class="col-md-8 col-lg-9">
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="username"
+                      name="username"
+                    />
+                    <small
+                      class="text-danger"
+                      *ngIf="
+                        onSubmitForm.get('username')?.hasError('serverError')
+                      "
+                      >{{ onSubmitForm.get('username')?.errors?.['serverError'] }}</small
+                    ><small
+                      *ngIf="
+                        shouldShowError('username') &&
+                        !onSubmitForm.controls['username'].hasError(
+                          'pattern'
+                        ) &&
+                        !onSubmitForm.get('username')?.hasError('serverError')
+                      "
+                      class="text-danger"
+                      >Please enter user name!</small
+                    >
+                    <small
+                      class="text-danger"
+                      *ngIf="
+                        onSubmitForm.controls['username'].hasError('pattern')
+                      "
+                    >
+                      Username must start with letters (no numbers), followed by
+                      a surname (numbers allowed).
+                    </small>
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <label class="col-md-4 col-lg-3 col-form-label">Email</label>
+                  <div class="col-md-8 col-lg-9">
+                    <input
+                      type="email"
+                      class="form-control"
+                      formControlName="email"
+                      name="email"
+                    /><small
+                      class="text-danger"
+                      *ngIf="onSubmitForm.get('email')?.hasError('serverError')"
+                      >{{ onSubmitForm.get('email')?.errors?.['serverError'] }}</small
+                    ><small
+                      *ngIf="
+                        shouldShowError('email') &&
+                        !onSubmitForm.controls['email'].hasError('pattern') &&
+                        !onSubmitForm.get('email')?.hasError('serverError')
+                      "
+                      class="text-danger"
+                      >Please enter Email.</small
+                    >
+                    <small
+                      class="text-danger"
+                      *ngIf="onSubmitForm.controls['email'].hasError('pattern')"
+                    >
+                      First enter charactors then you can use numbers after that
+                      '&#64;', domain name then '.' and last two char.
+                    </small>
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <label class="col-md-4 col-lg-3 col-form-label"
+                    >Company</label
+                  >
+                  <div class="col-md-8 col-lg-9">
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="company"
+                      name="company"
+                    /><small
+                      class="text-danger"
+                      *ngIf="
+                        onSubmitForm.get('company')?.hasError('serverError')
+                      "
+                      >{{ onSubmitForm.get('company')?.errors?.['serverError'] }}</small
+                    >
+                    <small
+                      *ngIf="
+                        shouldShowError('company') &&
+                        !onSubmitForm.get('company')?.hasError('serverError')
+                      "
+                      class="text-danger"
+                      >Please enter company.</small
+                    >
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <label name="JobId" class="col-md-4 col-lg-3 col-form-label"
+                    >Job</label
+                  >
+                  <div class="col-md-8 col-lg-9">
+                    <select
+                      formControlName="jobId"
+                      class="form-control"
+                      name="jobId"
+                    >
+                      <option
+                        *ngFor="let job of jobsOptions"
+                        [value]="job.value"
+                      >
+                        {{ job.text }}
+                      </option>
+                    </select>
+                    <small
+                      class="text-danger"
+                      *ngIf="onSubmitForm.get('jobId')?.hasError('serverError')"
+                      >{{ onSubmitForm.get('jobId')?.errors?.['serverError'] }}</small
+                    ><small
+                      *ngIf="
+                        shouldShowError('jobId') &&
+                        !onSubmitForm.get('jobId')?.hasError('serverError')
+                      "
+                      class="text-danger"
+                      >Please select your job.</small
+                    >
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <label class="col-md-4 col-lg-3 col-form-label">Phone</label>
+                  <div class="col-md-8 col-lg-9">
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="phone"
+                      name="phone"
+                    />
+                    <small
+                      class="text-danger"
+                      *ngIf="onSubmitForm.get('phone')?.hasError('serverError')"
+                      >{{ onSubmitForm.get('phone')?.errors?.['serverError'] }}</small
+                    ><small
+                      *ngIf="
+                        shouldShowError('phone') &&
+                        !onSubmitForm.get('phone')?.hasError('serverError') &&
+                        !onSubmitForm.get('phone')?.hasError('minPhoneValue') &&
+                        !onSubmitForm.get('phone')?.hasError('maxPhoneValue')
+                      "
+                      class="text-danger"
+                      >Please enter phone number.</small
+                    >
+                    <small
+                      *ngIf="
+                        onSubmitForm.get('phone')?.hasError('minPhoneValue')
+                      "
+                      class="text-danger"
+                    >
+                      Phone number must have at least 10 digits.
+                    </small>
+                    <small
+                      *ngIf="
+                        onSubmitForm.get('phone')?.hasError('maxPhoneValue')
+                      "
+                      class="text-danger"
+                    >
+                      Phone number cannot exceed 12.
+                    </small>
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <label class="col-md-4 col-lg-3 col-form-label"
+                    >Country</label
+                  >
+                  <div class="col-md-8 col-lg-9">
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="country"
+                      name="country"
+                    /><small
+                      class="text-danger"
+                      *ngIf="
+                        onSubmitForm.get('country')?.hasError('serverError')
+                      "
+                      >{{ onSubmitForm.get('country')?.errors?.['serverError'] }}</small
+                    ><small
+                      *ngIf="
+                        shouldShowError('country') &&
+                        !onSubmitForm.get('country')?.hasError('serverError')
+                      "
+                      class="text-danger"
+                      >Please enter country.</small
+                    >
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <label class="col-md-4 col-lg-3 col-form-label"
+                    >Address</label
+                  >
+                  <div class="col-md-8 col-lg-9">
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="address"
+                      name="address"
+                    /><small
+                      class="text-danger"
+                      *ngIf="
+                        onSubmitForm.get('address')?.hasError('serverError')
+                      "
+                      >{{ onSubmitForm.get('address')?.errors?.['serverError'] }}</small
+                    ><small
+                      *ngIf="
+                        shouldShowError('address') &&
+                        !onSubmitForm.get('address')?.hasError('serverError')
+                      "
+                      class="text-danger"
+                      >Please enter address.</small
+                    >
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <label class="col-md-4 col-lg-3 col-form-label"
+                    >Discription</label
+                  >
+                  <div class="col-md-8 col-lg-9">
+                    <textarea
+                      type="text"
+                      class="form-control"
+                      formControlName="discription"
+                      name="discription"
+                      style="height: 60px"
+                    ></textarea>
+                    <small
+                      class="text-danger"
+                      *ngIf="
+                        onSubmitForm.get('discription')?.hasError('serverError')
+                      "
+                      >{{ onSubmitForm.get('discription')?.errors?.['serverError'] }}</small
+                    ><small
+                      *ngIf="
+                        shouldShowError('discription') &&
+                        !onSubmitForm
+                          .get('discription')
+                          ?.hasError('serverError')
+                      "
+                      class="text-danger"
+                      >Please enter discription.</small
+                    >
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <label class="col-md-4 col-lg-3 col-form-label"
+                    >Twitter Profile</label
+                  >
+                  <div class="col-md-8 col-lg-9">
+                    <input
+                      name="twitter"
+                      type="text"
+                      class="form-control"
+                      id="Twitter"
+                      value="https://twitter.com/#"
+                    />
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <label class="col-md-4 col-lg-3 col-form-label"
+                    >Facebook Profile</label
+                  >
+                  <div class="col-md-8 col-lg-9">
+                    <input
+                      name="facebook"
+                      type="text"
+                      class="form-control"
+                      id="Facebook"
+                      value="https://facebook.com/#"
+                    />
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <label class="col-md-4 col-lg-3 col-form-label"
+                    >Instagram Profile</label
+                  >
+                  <div class="col-md-8 col-lg-9">
+                    <input
+                      name="instagram"
+                      type="text"
+                      class="form-control"
+                      id="Instagram"
+                      value="https://instagram.com/#"
+                    />
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <label class="col-md-4 col-lg-3 col-form-label"
+                    >Linkedin Profile</label
+                  >
+                  <div class="col-md-8 col-lg-9">
+                    <input
+                      name="linkedin"
+                      type="text"
+                      class="form-control"
+                      id="Linkedin"
+                      value="https://linkedin.com/#"
+                    />
+                  </div>
+                </div>
+
+                <div class="pt-3">
+                  <button type="submit" class="btn btn-primary">
+                    Save Changes
+                  </button>
+                </div>
+              </form>
+              <!-- End Profile Edit Form -->
+            </div>
+
+            <div class="tab-pane fade pt-3" id="profile-settings">
+              <!-- Settings Form -->
+              <form>
+                <div class="row mb-3">
+                  <label for="fullName" class="col-md-4 col-lg-3 col-form-label"
+                    >Email Notifications</label
+                  >
+                  <div class="col-md-8 col-lg-9">
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        id="changesMade"
+                        checked
+                      />
+                      <label class="form-check-label" for="changesMade">
+                        Changes made to your account
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        id="newProducts"
+                        checked
+                      />
+                      <label class="form-check-label" for="newProducts">
+                        Information on new products and services
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        id="proOffers"
+                      />
+                      <label class="form-check-label" for="proOffers">
+                        Marketing and promo offers
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        id="securityNotify"
+                        checked
+                        disabled
+                      />
+                      <label class="form-check-label" for="securityNotify">
+                        Security alerts
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="text-center">
+                  <button type="submit" class="btn btn-primary">
+                    Save Changes
+                  </button>
+                </div>
+              </form>
+              <!-- End settings Form -->
+            </div>
+
+            <div class="tab-pane fade pt-3" id="profile-change-password">
+              <!-- Change Password Form -->
+              <form [formGroup]="passwordForm" (ngSubmit)="onPasswordSubmit()">
+                <div class="row mb-3">
+                  <label class="col-md-4 col-lg-3 col-form-label"
+                    >Current Password</label
+                  >
+                  <div class="col-md-8 col-lg-9">
+                    <input
+                      formControlName="currentPassword"
+                      class="form-control"
+                      type="password"
+                    />
+                    <div
+                      *ngIf="
+                        passwordForm.get('currentPassword')?.invalid &&
+                        (passwordForm.get('currentPassword')?.touched ||
+                          passwordForm.get('currentPassword')?.dirty)
+                      "
+                      class="text-danger"
+                    >
+                      Current password is required.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <label class="col-md-4 col-lg-3 col-form-label"
+                    >New Password</label
+                  >
+                  <div class="col-md-8 col-lg-9">
+                    <input
+                      formControlName="newPassword"
+                      type="password"
+                      class="form-control"
+                    />
+                    <small
+                      class="text-danger"
+                      *ngIf="
+                        passwordForm.controls['newPassword'].hasError('pattern')
+                      "
+                    >
+                      Password must be at least 8 characters long, with an
+                      uppercase, lowercase, number, and special character.
+                    </small>
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <label class="col-md-4 col-lg-3 col-form-label"
+                    >Re-enter New Password</label
+                  >
+                  <div class="col-md-8 col-lg-9">
+                    <input
+                      formControlName="confirmPassword"
+                      type="password"
+                      class="form-control"
+                    />
+                    <div
+                      *ngIf="passwordForm.errors?.['mismatch']&&
+                      (passwordForm.get('confirmPassword')?.touched ||
+                        passwordForm.get('confirmPassword')?.dirty)"
+                      class="text-danger"
+                    >
+                      Passwords do not match!
+                    </div>
+                    <div
+                      *ngIf="
+                        passwordForm.get('confirmPassword')?.invalid &&
+                        (passwordForm.get('confirmPassword')?.touched ||
+                          passwordForm.get('confirmPassword')?.dirty)
+                      "
+                      class="text-danger"
+                    >
+                      Confirm password is required.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="text-center">
+                  <button
+                    type="submit"
+                    class="btn btn-primary"
+                    [disabled]="passwordForm.invalid"
+                  >
+                    Change Password
+                  </button>
+                </div>
+              </form>
+
+              <!-- End Change Password Form -->
+            </div>
+          </div>
+          <!-- End Bordered Tabs -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  $(document).ready(function () {
+    if (ViewBag.ActiveTab == 4) {
+      Html.Raw("$('#profileTabs #btnChangePassword').tab('show');");
+    }
+  });
+</script>

@@ -1,0 +1,250 @@
+<!-- Trigger Button -->
+<a
+  class="btn btn-primary"
+  data-bs-toggle="modal"
+  data-bs-target="#addAppointmentModal"
+  (click)="onAdd()"
+  >Create Appointment</a
+>
+
+<full-calendar #calendar [options]="calendarOptions"></full-calendar>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="addAppointmentModal"
+  tabindex="-1"
+  aria-labelledby="addAppointmentModalLabel"
+  aria-hidden="true"
+  #addAppointmentModal
+>
+  <div class="modal-dialog modal-landscape">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addAppointmentModalLabel">Appointment</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          #closebutton
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form
+          [formGroup]="onSubmitForm"
+          *ngIf="modalPopupAndMsg != 'Appointment Details'"
+          (ngSubmit)="onSubmit()"
+        >
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">{{ modalPopupAndMsg }}</h5>
+                  <div class="mb-3 row">
+                    <div class="col-12">
+                      <label for="Appointment" class="form-label"
+                        >Subject</label
+                      >
+                      <input
+                        placeholder="Enter Subject..."
+                        type="text"
+                        class="form-control"
+                        formControlName="subject"
+                        name="subject"
+                      />
+                      <small
+                        *ngIf="
+                          shouldShowError('subject') &&
+                          !onSubmitForm.get('subject')?.hasError('serverError')
+                        "
+                        class="text-danger"
+                      >
+                        Please enter Subject. </small
+                      ><small
+                        class="text-danger"
+                        *ngIf="
+                          onSubmitForm.get('subject')?.hasError('serverError')
+                        "
+                        >{{ onSubmitForm.get('subject')?.errors?.['serverError'] }}</small
+                      >
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-12">
+                      <label for="Discription" class="form-label"
+                        >Discription</label
+                      >
+                      <textarea
+                        type="text"
+                        class="form-control"
+                        placeholder="Enter Description..."
+                        formControlName="description"
+                        name="discription"
+                      ></textarea
+                      ><small
+                        *ngIf="
+                          shouldShowError('description') &&
+                          !onSubmitForm
+                            .get('description')
+                            ?.hasError('serverError')
+                        "
+                        class="text-danger"
+                      >
+                        Please enter Description. </small
+                      ><small
+                        class="text-danger"
+                        *ngIf="
+                          onSubmitForm
+                            .get('description')
+                            ?.hasError('serverError')
+                        "
+                        >{{ onSubmitForm.get('description')?.errors?.['serverError'] }}</small
+                      >
+                      <input
+                        type="hidden"
+                        formControlName="appointmentId"
+                        name="summary"
+                      />
+                    </div>
+                  </div>
+                  <div class="mb-3 row">
+                    <div class="col-6">
+                      <label for="startDate" class="form-label"
+                        >Start Date</label
+                      >
+                      <input
+                        type="date"
+                        class="form-control"
+                        formControlName="startDate"
+                        name="startDate"
+                      /><small
+                        *ngIf="
+                          shouldShowError('startDate') &&
+                          !onSubmitForm
+                            .get('startDate')
+                            ?.hasError('serverError')
+                        "
+                        class="text-danger"
+                      >
+                        Please enter Start Date. </small
+                      ><small
+                        class="text-danger"
+                        *ngIf="
+                          onSubmitForm.get('startDate')?.hasError('serverError')
+                        "
+                        >{{ onSubmitForm.get('startDate')?.errors?.['serverError'] }}</small
+                      >
+                    </div>
+                    <div class="col-6">
+                      <label for="endDate" class="form-label">End Date</label>
+                      <input
+                        type="date"
+                        class="form-control"
+                        formControlName="endDate"
+                        name="endDate"
+                      /><small
+                        *ngIf="
+                          shouldShowError('endDate') &&
+                          !onSubmitForm.get('endDate')?.hasError('serverError')
+                        "
+                        class="text-danger"
+                      >
+                        Please enter End Date.
+                      </small>
+                      <small
+                        class="text-danger"
+                        *ngIf="
+                          onSubmitForm.hasError('dateRangeInvalid') &&
+                          onSubmitForm.touched
+                        "
+                      >
+                        End date cannot be earlier than start date. </small
+                      ><small
+                        class="text-danger"
+                        *ngIf="
+                          onSubmitForm.get('endDate')?.hasError('serverError')
+                        "
+                        >{{ onSubmitForm.get('endDate')?.errors?.['serverError'] }}</small
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button type="submit" class="btn btn-primary">
+                Save Contact
+              </button>
+            </div>
+          </div>
+        </form>
+        <section
+          class="section profile"
+          *ngIf="modalPopupAndMsg == 'Appointment Details'"
+        >
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="card">
+                <div class="card-body">
+                  <div class="tab-content">
+                    <h5 class="card-title">{{ modalPopupAndMsg }}</h5>
+                    <hr class="hr" />
+                    <div class="row mb-2">
+                      <div class="col-lg-3 col-md-4 label">Subject</div>
+                      <div class="col-lg-9 col-md-8">
+                        {{ appointment.subject }}
+                      </div>
+                    </div>
+                    <div class="row mb-2">
+                      <div class="col-lg-3 col-md-4 label">Description</div>
+                      <div class="col-lg-9 col-md-8">
+                        {{ appointment.description }}
+                      </div>
+                    </div>
+
+                    <div class="row mb-2">
+                      <div class="col-lg-3 col-md-4 label">Start Date</div>
+                      <div class="col-lg-9 col-md-8">
+                        {{ appointment.startDate }}
+                      </div>
+                    </div>
+
+                    <div class="row mb-2">
+                      <div class="col-lg-3 col-md-4 label">End Date</div>
+                      <div class="col-lg-9 col-md-8">
+                        {{ appointment.endDate }}
+                      </div>
+                    </div>
+                  </div>
+                  <hr class="hr" />
+                  <button
+                    class="btn btn-primary"
+                    data-bs-toggle="modal"
+                    data-bs-target="#addAppointmentModal"
+                    (click)="editAppointment(appointment)"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    class="btn btn-danger ms-3"
+                    (click)="DeleteAppointment(appointment.appointmentId)"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
